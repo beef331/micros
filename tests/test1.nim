@@ -72,6 +72,12 @@ test "object api":
     Test2 = object
       foo: int
       bar: string
+    Test3 = object
+      case isThing: bool
+      of true:
+        foo: int
+      else:
+        bar: int
 
   test(Test(), "Hello")
   check Hello().newField is float
@@ -79,3 +85,8 @@ test "object api":
   test(Test2(), "Hmm")
   check Hmm().newField is float
   check HmmFields == @["foo", "bar", "newField"]
+  test(Test3(), "Huh")
+  check HuhFields == @["isThing", "foo", "bar", "newField"]
+  let a = Huh(isThing: true)
+  check a.foo == 0
+  check a.newField == 0

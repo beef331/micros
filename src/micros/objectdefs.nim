@@ -16,13 +16,17 @@ func objectDef*(n: NimNode): ObjectDef =
     assert n[^1][0].kind == nnkObjectTy
   ObjectDef n
 
-func recList*(obj: ObjectDef): NimNode =
-  let
-    n = NimNode obj
-  if n[^1].kind == nnkRefTy:
-    n[^1][0][2]
+proc recList*(obj: ObjectDef): auto =
+  if obj.NimNode[^1].kind == nnkRefTy:
+    obj.NimNode[^1][0][2]
   else:
-    n[^1][2]
+    obj.NimNode[^1][2]
+
+proc `recList=`*(obj: ObjectDef, val: NimNode) =
+  if obj.NimNode[^1].kind == nnkRefTy:
+    obj.NimNode[^1][0][2] = val
+  else:
+    obj.NimNode[^1][2] = val
 
 func `name=`*(obj: ObjectDef, newName: NimName or string) =
   NimNode(obj)[0] =
@@ -36,7 +40,11 @@ func `name=`*(obj: ObjectDef, newName: NimName or string) =
 func addField*(obj: ObjectDef, field: IdentDef) =
   let
     n = NimNode obj
-  obj.recList.add NimNode(field)
+  case obj.recList.kind
+  of nnkRecCase, nnkRecWhen:
+    obj.recList = nnkRecList.newTree(obj.recList, NimNode field)
+  else:
+    obj.recList.add NimNode(field)
 
 func delField*(obj: ObjectDef, fieldName: string) =
   for i, idef in obj.recList:
@@ -52,7 +60,25 @@ func delField*(obj: ObjectDef, fieldName: string) =
             idef.NimNode.del(ind, 1)
             return
 
+proc collectBranchFields(n: NimNode): seq[IdentDef] =
+  case n.kind:
+  of nnkIdentDefs:
+    result.add identDef n
+  of nnkRecCase:
+    result.add identDef n[0]
+    for i in 1..<n.len:
+      result.add collectBranchFields(n[i][^1]) # Get reclist of branch
+  of nnkRecList:
+    for child in n:
+      result.add collectBranchFields(child)
+  else: discard
+
 iterator fields*(obj: ObjectDef): IdentDef =
   for def in obj.recList:
-    if def.kind == nnkIdentDefs:
+    case def.kind
+    of nnkIdentDefs:
       yield IdentDef def
+    of nnkRecCase:
+      for fields in collectBranchFields(def):
+        yield fields
+    else: discard
