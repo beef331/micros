@@ -62,7 +62,6 @@ test "object api":
       for idef in obj.fields:
         for name in idef.names:
           $name
-
     result = newStmtList(result)
     result.add letStmt(name & "Fields", fieldNames)
 
@@ -90,3 +89,23 @@ test "object api":
   let a = Huh(isThing: true)
   check a.foo == 0
   check a.newField == 0
+
+test "Check Parent Fields":
+  macro fieldNames(a: typed): untyped =
+    let fields = collect:
+      for x in objectDef(a).fields:
+        for name in x.names:
+          $name
+    newLit(fields)
+  type
+    A = ref object of RootObj
+      foo: int
+    B = ref object of A
+      bar: string
+      baz: float
+    C = ref object of B
+      bungo: int
+  check fieldNames(A()) == @["foo"]
+  check fieldNames(B()) == @["bar", "baz", "foo"]
+  check fieldNames(C()) == @["bungo", "bar", "baz", "foo"]
+

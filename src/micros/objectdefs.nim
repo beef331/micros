@@ -1,6 +1,6 @@
 import nimnodes, identdefs
-import std/enumerate
-
+import std/[enumerate, options]
+export options
 func objectDef*(n: NimNode): ObjectDef =
   let n =
     case n.kind
@@ -10,10 +10,7 @@ func objectDef*(n: NimNode): ObjectDef =
       n[0].getImpl
     else:
       n
-  assert n[0].kind in {nnkSym, nnkIdent}
-  assert n[^1].kind in {nnkRefTy, nnkObjectTy}
-  if n[^1].kind == nnkRefTy:
-    assert n[^1][0].kind == nnkObjectTy
+  assert n.kind == nnkTypeDef
   ObjectDef n
 
 proc recList*(obj: ObjectDef): auto =
@@ -28,12 +25,52 @@ proc `recList=`*(obj: ObjectDef, val: NimNode) =
   else:
     obj.NimNode[^1][2] = val
 
-func `name=`*(obj: ObjectDef, newName: NimName or string) =
-  NimNode(obj)[0] =
-    when newName is NimName:
-      NimNode newName
+func inheritObj*(obj: ObjectDef): Option[ObjectDef] =
+  let inherit =
+    if obj.NimNode[^1].kind == nnkRefTy:
+      obj.NimNode[^1][0][1]
     else:
-      ident newName
+      obj.NimNode[^1][1]
+
+  if inherit.kind == nnkOfInherit and not inherit[0].eqIdent("RootObj"):
+    result = some objectDef(inherit[0])
+
+func `name=`*(obj: ObjectDef, newName: NimName or string) =
+  let
+    newName =
+      when newName is NimName:
+        NimNode newName
+      else:
+        ident newName
+    obj = NimNode(obj)
+  case obj[0].kind
+  of nnkIdent, nnkSym:
+    obj[0] = newName
+  of nnkPragmaExpr:
+    case obj[0][0].kind
+    of nnkIdent, nnkSym:
+      obj[0][0] = newName
+    else: # Postfix pragma
+      obj[0][0][1] = newName
+  else: # Postfix
+    obj[0][1] = newName
+
+func `name`*(obj: ObjectDef): NimName =
+  let obj = NimNode obj
+  NimName(
+    case obj[0].kind
+    of nnkIdent, nnkSym:
+      obj[0]
+    of nnkPragmaExpr:
+      case (obj)[0][0].kind
+      of nnkIdent, nnkSym:
+        obj[0][0]
+      else: # Postfix pragma
+        obj[0][0][1]
+    else: # Postfix
+      obj[0][1]
+  )
+
 
 ## Todo handle fields inside recCase and reclist
 
@@ -82,3 +119,19 @@ iterator fields*(obj: ObjectDef): IdentDef =
       for fields in collectBranchFields(def):
         yield fields
     else: discard
+  var parent = obj.inheritObj
+  while parent.isSome:
+    for iDef in collectBranchFields(parent.get.reclist):
+      yield iDef
+    parent = parent.get.inheritObj
+
+iterator pragmas*(obj: ObjectDef): PragmaVal =
+  case obj.NimNode[0].kind
+  of nnkPragmaExpr:
+    for i in 1..<obj.NimNode[0].len:
+      yield PragmaVal obj.NimNode[0][i]
+  else: discard
+
+iterator genericParams*(obj: ObjectDef): IdentDef =
+  for def in NimNode(obj)[1]:
+    yield IdentDef def
