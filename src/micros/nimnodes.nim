@@ -33,6 +33,9 @@ func repr*(n: DistinctNimNode): string = system.repr(NimNode(n))
 
 func `$`*(n: NimName): string {.borrow.}
 
+func `==`*(n: Nimname, name: string): bool = n.NimNode.eqIdent name
+func `==`*(n, name: Nimname): bool = n.NimNode.eqIdent name.NimNode
+
 func add*(n: NimNode, d: DistinctNimNode) = n.add NimNode d
 
 func copy*(n: DistinctNimNode): typeof(n) = typeOf(n) NimNode(n).copyNimTree

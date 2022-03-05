@@ -109,3 +109,34 @@ test "Check Parent Fields":
   check fieldNames(B()) == @["bar", "baz", "foo"]
   check fieldNames(C()) == @["bungo", "bar", "baz", "foo"]
 
+test "FieldAccessible":
+  type MyObject = object
+    case a: uint8
+    of 0u8..3u8, 10u8, 20u8:
+      b, c : int
+    of {40u8, 50 .. 60}:
+      d: int
+    else:
+      e: float
+
+  macro isAccessible(a: typed, name: static string): untyped =
+    result = fieldConditions(a, name)
+    if result.kind == nnkNilLit:
+      result = newLit false
+
+  var a = MyObject()
+  check a.isAccessible("a")
+  check a.isAccessible("b")
+  check a.isAccessible("c")
+  check not a.isAccessible("d")
+  check not a.isAccessible("e")
+
+  a = MyObject(a: 100)
+  check a.isAccessible("e")
+  check a.isAccessible("a")
+  check not a.isAccessible("b")
+  check not a.isAccessible("c")
+  check not a.isAccessible("d")
+
+
+

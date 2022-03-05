@@ -72,6 +72,65 @@ func `name`*(obj: ObjectDef): NimName =
   )
 
 
+func makeAccessCond(n, obj, field: NimNode): NimNode =
+  template setResult(to: NimNode) =
+    if result.kind == nnkNilLit:
+      result = to
+    else:
+      result = infix(result, "or", to)
+  let fieldAccess = newDotExpr(obj, field)
+  for i, cond in n:
+    case cond.kind
+    of nnkCurly, nnkInfix:
+      setResult(fieldAccess.infix("in", cond))
+    elif i < n.len - 1:
+      setResult(fieldAccess.infix("==", cond))
+
+  if result.kind != nnkNilLit:
+    result = nnkPar.newTree(result)
+
+
+func fieldConditions(obj, list: NimNode, field: NimName or string, cond: NimNode): NimNode =
+
+  if list.kind == nnkIdentDefs:
+    for name in list.identDef.names:
+      if name == field:
+        return cond
+  for n in list:
+    case n.kind:
+    of nnkIdentDefs:
+      for name in n.identDef.names:
+        if name == field:
+          return cond
+    of nnkRecCase:
+      let fieldToCheck = n[0][0]
+      var elseCond: NimNode
+      for branch in n:
+        var newCond = copyNimTree(cond)
+        case branch.kind
+        of nnkIdentDefs:
+          let val = fieldConditions(obj, branch, field, newCond)
+          if val.kind != nnkNilLit:
+            return val
+        of nnkOfBranch:
+          newCond = infix(newCond, "and", branch.makeAccessCond(obj, fieldToCheck))
+          if elseCond.kind == nnkNilLit:
+            elseCond = prefix(newCond, "not")
+          else:
+            elseCond = infix(elseCond, "and", newCall("not", newCond))
+        of nnkElse:
+          newCond = infix(cond, "and", elseCond)
+        else: discard
+        if branch.kind != nnkIdentDefs:
+          let val = fieldConditions(obj, branch[^1], field, newCond)
+          if val.kind != nnkNilLit:
+            return val
+
+    else: discard
+
+func fieldConditions*(obj: NimNode, field: NimName or string): NimNode =
+  fieldConditions(obj, obj.objectDef.recList, field, newLit(true))
+
 ## Todo handle fields inside recCase and reclist
 
 func addField*(obj: ObjectDef, field: IdentDef) =
