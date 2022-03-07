@@ -1,6 +1,7 @@
 import nimnodes, identdefs
 import std/[enumerate, options]
 export options
+
 func objectDef*(n: NimNode): ObjectDef =
   let n =
     case n.kind
@@ -71,6 +72,20 @@ func `name`*(obj: ObjectDef): NimName =
       obj[0][1]
   )
 
+func addGenericParam*(obj: ObjectDef, newGenParam: IdentDef) =
+  let gParams = NimNode(obj)[1]
+  case gParams.kind
+  of nnkGenericParams:
+    gParams.add NimNode newGenParam
+  else:
+    NimNode(obj)[1] = nnkGenericParams.newTree(NimNode newGenParam)
+
+func addPragma*(obj: ObjectDef, pragma: PragmaVal) =
+  case obj.Nimnode[0].kind
+  of nnkPragmaExpr:
+    obj.NimNode[0].add NimNode pragma
+  else:
+    obj.NimNode[0] = nnkPragmaExpr.newTree(obj.NimNode[0], NimNode pragma)
 
 func makeAccessCond(n, obj, field: NimNode): NimNode =
   template setResult(to: NimNode) =
@@ -169,6 +184,12 @@ proc collectBranchFields(n: NimNode): seq[IdentDef] =
       result.add collectBranchFields(child)
   else: discard
 
+iterator inheritObjs*(obj: ObjectDef): ObjectDef =
+  var parent = obj.inheritObj
+  while parent.isSome:
+    yield parent.get
+    parent = parent.get.inheritObj
+
 iterator fields*(obj: ObjectDef): IdentDef =
   for def in obj.recList:
     case def.kind
@@ -178,11 +199,9 @@ iterator fields*(obj: ObjectDef): IdentDef =
       for fields in collectBranchFields(def):
         yield fields
     else: discard
-  var parent = obj.inheritObj
-  while parent.isSome:
-    for iDef in collectBranchFields(parent.get.reclist):
+  for parent in obj.inheritObjs:
+    for iDef in collectBranchFields(parent.reclist):
       yield iDef
-    parent = parent.get.inheritObj
 
 iterator pragmas*(obj: ObjectDef): PragmaVal =
   case obj.NimNode[0].kind
