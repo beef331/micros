@@ -14,7 +14,7 @@ type
   NimName* = distinct NimNode
 
   StmtList* = distinct NimNode
-  StmtSubTypes* = VarDefs or StmtList or RoutineNode
+  StmtSubTypes* = VarDefs or StmtList or RoutineNode or NimNode
   DistinctNimNode* = concept d
     d.distinctBase is NimNode
   NimNodes* = DistinctNimNode or NimNode
@@ -26,6 +26,12 @@ func exported*(name: string or NimNode): NimName =
     else:
       name
   NimName postFix(name, "*")
+
+func toName*(n: NimName or string): NimName =
+  when n is string:
+    NimName ident(n)
+  else:
+    n
 
 export macros
 

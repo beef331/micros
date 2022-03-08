@@ -1,8 +1,38 @@
 import nimnodes, identdefs
+import std/genasts
+
+type
+  RoutineType = enum
+    rtProc
+    rtFunc
+    rtIter
+    rtMacro
+    rtTemplate
 
 func routineNode*(n: NimNode): RoutineNode =
   assert n.kind in RoutineNodes
   RoutineNode n
+
+func routineNode*(name: NimName or string, typ = rtProc): RoutineNode =
+  let name = name.toName.NimNode
+  result =
+    routineNode:
+      case typ
+      of rtProc:
+        genast(name):
+          proc name()
+      of rtFunc:
+        genast(name):
+          funcname()
+      of rtIter:
+        genast(name):
+          iterator name()
+      of rtMacro:
+        genast(name):
+          macro name()
+      of rtTemplate:
+        genast(name):
+          template name()
 
 func strName*(r: RoutineNode): string = $NimNode(r)[0]
 
@@ -64,9 +94,20 @@ func add*(r: RoutineNode, pragma: PragmaVal) =
     NimNode(r)[4].add NimNode pragma
 
 func insert*(r: RoutineNode, i: int, val: StmtSubTypes) =
- NimNode(r)[^1].insert i, NimNode val
+  {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
+  NimNode(r)[^1].insert i, NimNode val
 
-func body*(r: RoutineNode): StmtList = StmtList NimNode(r)[^1]
+func body*(r: RoutineNode): StmtList =
+  {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
+  StmtList NimNode(r)[^1]
+
+func addToBody*(r: RoutineNode, toAdd: StmtSubTypes) =
+  {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
+  case NimNode(r)[^1].kind
+  of nnkStmtList:
+    r.body.NimNode.add toAdd
+  else:
+    NimNode(r)[^1] = newStmtList(NimNode r.body, NimNode toAdd)
 
 iterator params*(r: RoutineNode): IdentDef =
   for i, x in NimNode(r).params:

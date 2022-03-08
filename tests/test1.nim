@@ -50,6 +50,16 @@ test "Rtos fun example":
   check doThing is proc(a: pointer) {.cdecl.}
 
 
+test "Procedure from scratch":
+  macro makeProc(): untyped =
+    let p = routineNode("hello")
+    p.addToBody newCall("echo", ident"message")
+    p.addParam identDef("message", int)
+    result = NimNode p
+  makeProc()
+  hello(10)
+  hello(20)
+
 test "object api":
   macro test(a: typed, name: static string) =
     let obj = objectDef(a).copy
