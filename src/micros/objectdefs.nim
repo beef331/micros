@@ -1,5 +1,5 @@
 import nimnodes, identdefs, utils
-import std/[enumerate, options]
+import std/[enumerate, options, genasts]
 export options
 
 func `of`*(n: NimNode, _: typedesc[ObjectDef]): bool =
@@ -18,6 +18,35 @@ func objectDef*(n: NimNode): ObjectDef =
     else:
       n
   n.checkConv ObjectDef
+
+func objectDef*(name: string or NimName, isRef = false, parent: NimName or NimNode = newEmptyNode()): ObjectDef =
+  let
+    name =
+      when name is string:
+        ident name
+      else:
+        name
+    parent =
+      when parent is NimName:
+        NimNode parent
+      else:
+        parent
+  let res =
+    if isRef:
+      if parent.kind == nnkEmpty:
+        genAst(name):
+          type name = ref object
+      else:
+        genAst(name, parent):
+          type name = ref object of parent
+    else:
+      if parent.kind == nnkEmpty:
+        genAst(name):
+          type name = object
+      else:
+        genAst(name, parent):
+          type name = object of parent
+  ObjectDef res[0]
 
 proc recList*(obj: ObjectDef): auto =
   if obj.NimNode[^1].kind == nnkRefTy:
@@ -159,6 +188,8 @@ func addField*(obj: ObjectDef, field: IdentDef) =
   case obj.recList.kind
   of nnkRecCase, nnkRecWhen:
     obj.recList = nnkRecList.newTree(obj.recList, NimNode field)
+  of nnkEmpty:
+    obj.recList = nnkRecList.newTree(NimNode field)
   else:
     obj.recList.add NimNode(field)
 
