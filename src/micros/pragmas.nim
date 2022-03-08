@@ -1,11 +1,11 @@
-import nimnodes
+import nimnodes, utils
 
 func pragmaVal(name: string, val: auto): PragmaVal =
   PragmaVal newColonExpr(ident name, newLit val)
 
-func pragmaVal(n: NimNode): PragmaVal =
-  assert n.kind in {nnkExprColonExpr, nnkIdent}
-  PragmaVal n
+func `of`*(n: NimNode): bool = n.checkit {nnkExprColonExpr, nnkIdent, nnkSym}
+
+func pragmaVal(n: NimNode): PragmaVal = n.checkConv PragmaVal
 
 func pragma*(name: string): PragmaVal = PragmaVal ident name
 

@@ -1,4 +1,4 @@
-import nimnodes, identdefs
+import nimnodes, identdefs, utils
 import std/genasts
 
 type
@@ -9,9 +9,16 @@ type
     rtMacro
     rtTemplate
 
-func routineNode*(n: NimNode): RoutineNode =
-  assert n.kind in RoutineNodes
-  RoutineNode n
+func `of`*(n: NimNode): bool =
+  n.checkit RoutineNodes
+  n.checkit 0, {nnkPragmaExpr, nnkPostfix, nnkIdent, nnkSym} # name
+  n.checkit 1, {nnkEmpty, nnkStmtList} # constraint
+  n.checkit 2, {nnkGenericParams, nnkEmpty} # generic params
+  n.checkit 3, {nnkFormalParams} # formal Params
+  n.checkit 4, {nnkEmpty, nnkPragma} # pragmas
+  n.checkit ^1, {nnkStmtList} # Perhaps bad
+
+func routineNode*(n: NimNode): RoutineNode = n.checkConv RoutineNode
 
 func routineNode*(name: NimName or string, typ = rtProc): RoutineNode =
   let name = name.toName.NimNode

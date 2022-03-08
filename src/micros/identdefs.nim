@@ -1,8 +1,10 @@
-import nimnodes
+import nimnodes, utils
 
-func identDef*(n: NimNode): IdentDef =
-  assert n.kind == nnkIdentDefs
-  IdentDef n
+func `of`*(node: NimNode, _: typedesc[IdentDef]): bool =
+  node.checkit({nnkIdentDefs})
+  node.checkit(0..^3, {nnkIdent, nnkSym})
+
+func identDef*(n: NimNode): IdentDef = n.checkConv IdentDef
 
 func identDefTyp(name: string, typ: typedesc): IdentDef =
   IdentDef newIdentDefs(ident name, typ.getType)

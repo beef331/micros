@@ -1,6 +1,12 @@
-import nimnodes, identdefs
+import nimnodes, identdefs, utils
 import std/[enumerate, options]
 export options
+
+func `of`*(n: NimNode, _: typedesc[ObjectDef]): bool =
+  n.checkIt {nnkTypedef}
+  n[^1].checkIt {nnkRefTy, nnkObjectTy}
+  if n[^1].kind == nnkRefTy:
+    n[^1][0].checkit {nnkObjectTy}
 
 func objectDef*(n: NimNode): ObjectDef =
   let n =
@@ -11,8 +17,7 @@ func objectDef*(n: NimNode): ObjectDef =
       n[0].getImpl
     else:
       n
-  assert n.kind == nnkTypeDef
-  ObjectDef n
+  n.checkConv ObjectDef
 
 proc recList*(obj: ObjectDef): auto =
   if obj.NimNode[^1].kind == nnkRefTy:
