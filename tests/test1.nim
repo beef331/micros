@@ -8,7 +8,7 @@
 import unittest
 
 import micros
-import std/[macros, sugar]
+import std/[macros, sugar, genasts]
 
 test "collecting vals":
   macro outputParams(p: typed): untyped =
@@ -63,18 +63,24 @@ test "Procedure from scratch":
 
 suite "Flow Control Api":
   test "Generate case statement":
-    macro makeCase(cond: int): untyped =
+    macro makeCase(cond: static int): untyped =
       result = newStmtList()
       result.add letStmt("a", cond)
       let
         stmt = caseStmt(NimName ident"a")
       stmt.add:
         ofBranch(cond):
-          a * 20
+          genAst: a * 20
       stmt.add:
-        elsBranch():
-          10
+        elseBranch newLit 10
+      stmt.add:
+        elifBranch:
+          genAst: a mod 2 == 0
+        do:
+          genAst: a * 3
+
       result.add stmt
+
     check makeCase(15) == 300
     check makeCase(10) == 200
     check makeCase(3) == 60

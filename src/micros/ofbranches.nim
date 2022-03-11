@@ -1,5 +1,5 @@
 import nimnodes, utils, stmtlists
-import std/[macros, genasts]
+import std/macros
 
 func `of`(n: NimNode, _: typedesc[OfBranch]): bool =
   n.checkit {nnkOfBranch}
@@ -7,17 +7,11 @@ func `of`(n: NimNode, _: typedesc[OfBranch]): bool =
 
 func ofBranch*(n: NimNode): OfBranch = n.checkConv OfBranch
 
-macro ofBranch*(cond, body: untyped): untyped =
-  let
-    cond =
-      if cond.kind == nnkSym:
-        cond
-      else:
-        cond.astGenRepr.parseExpr
-    body = body.astGenRepr.parseExpr
-  result = newCall(bindSym"ofBranch"):
-    genast(cond, body):
-      nnkOfBranch.newTree(cond, body)
+func ofBranch*(cond: not NimNode, body: NimNode): OfBranch =
+  ofBranch nnkOfBranch.newTree(newLit cond, body)
+
+func ofBranch*(cond: NimNode, body: NimNode): OfBranch =
+  ofBranch nnkOfBranch.newTree(cond, body)
 
 func stmtList*(ofBranch: OfBranch): StmtList = stmtList ofBranch.NimNode[^1]
 
