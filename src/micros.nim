@@ -1,2 +1,2 @@
-import micros/[identdefs, variabledefs, routines, stmtlists, utils, nimnodes, pragmas, objectdefs]
-export identdefs, variabledefs, routines, stmtlists, utils, nimnodes, pragmas, objectdefs
+import micros/[identdefs, variabledefs, routines, stmtlists, utils, nimnodes, pragmas, objectdefs, ofbranches, elifbranches, elsebranches, casestmts]
+export identdefs, variabledefs, routines, stmtlists, utils, nimnodes, pragmas, objectdefs, ofbranches, elifbranches, elsebranches, casestmts

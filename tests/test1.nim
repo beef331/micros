@@ -60,6 +60,26 @@ test "Procedure from scratch":
   hello(10)
   hello(20)
 
+
+suite "Flow Control Api":
+  test "Generate case statement":
+    macro makeCase(cond: int): untyped =
+      result = newStmtList()
+      result.add letStmt("a", cond)
+      let
+        stmt = caseStmt(NimName ident"a")
+      stmt.add:
+        ofBranch(cond):
+          a * 20
+      stmt.add:
+        elsBranch():
+          10
+      result.add stmt
+    check makeCase(15) == 300
+    check makeCase(10) == 200
+    check makeCase(3) == 60
+
+
 suite "Object Api":
   test "From Source":
     macro test(a: typed, name: static string) =

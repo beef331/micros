@@ -8,6 +8,13 @@ type
   ObjectDef* = distinct NimNode
   EnumDef* = distinct NimNode
   PragmaVal* = distinct NimNode
+  CaseStmt* = distinct NimNode
+  IfStmt* = distinct NimNode
+  ElIfBranch* = distinct NimNode
+  ElseBranch* = distinct NimNode
+  OfBranch* = distinct NimNode
+  WhileLoop* = distinct NimNode
+  ForLoop* = distinct NimNode
 
   VarDefs* = VarDef or LetDef or ConstDef
 

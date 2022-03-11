@@ -10,8 +10,6 @@ func `of`*(n: NimNode, T: typedesc[VarDefs]): bool =
       {nnkConstSection}
   n.checkit 0..^1, {nnkIdentdefs}
 
-
-
 func varDef*(n: NimNode): VarDef = n.checkConv VarDef
 
 func letDef*(n: NimNode): LetDef = n.checkConv LetDef

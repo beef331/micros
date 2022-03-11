@@ -31,21 +31,21 @@ func objectDef*(name: string or NimName, isRef = false, parent: NimName or NimNo
         NimNode parent
       else:
         parent
-  let res =
-    if isRef:
-      if parent.kind == nnkEmpty:
-        genAst(name):
-          type name = ref object
+    res =
+      if isRef:
+        if parent.kind == nnkEmpty:
+          genAst(name):
+            type name = ref object
+        else:
+          genAst(name, parent):
+            type name = ref object of parent
       else:
-        genAst(name, parent):
-          type name = ref object of parent
-    else:
-      if parent.kind == nnkEmpty:
-        genAst(name):
-          type name = object
-      else:
-        genAst(name, parent):
-          type name = object of parent
+        if parent.kind == nnkEmpty:
+          genAst(name):
+            type name = object
+        else:
+          genAst(name, parent):
+            type name = object of parent
   ObjectDef res[0]
 
 proc recList*(obj: ObjectDef): auto =
