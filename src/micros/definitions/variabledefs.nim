@@ -1,4 +1,4 @@
-import nimnodes, utils
+import micros/[nimnodes, utils]
 
 func `of`*(n: NimNode, T: typedesc[VarDefs]): bool =
   n.checkit:

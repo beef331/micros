@@ -1,4 +1,27 @@
 import nimnodes
+
+
+iterator `[]`*(n: NimNodes, slice: Slice[int]): NimNode =
+  when n is DistinctNimNode:
+    let n = NimNode n
+
+  for i in slice:
+    yield n[i]
+
+iterator `[]`*(n: NimNodes, slice: HSlice[int, BackwardsIndex]): NimNode =
+  when n is DistinctNimNode:
+    let n = NimNode n
+
+  for i in slice.a .. n.len - int slice.b:
+    yield n[i]
+
+iterator `[]`*(n: NimNodes, slice: Slice[BackwardsIndex]): NimNode =
+  when n is DistinctNimNode:
+    let n = NimNode n
+
+  for i in n.len - int slice.a .. n.len - int slice.b:
+    yield n[i]
+
 func castTo*(node: NimNodes, typ: typedesc): NimNode =
   nnkCast.newTree(typ.getType[^1], NimNode node)
 

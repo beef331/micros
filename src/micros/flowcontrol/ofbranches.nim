@@ -1,4 +1,4 @@
-import nimnodes, utils, stmtlists
+import micros/[nimnodes, utils, stmtlists]
 import std/macros
 
 func `of`(n: NimNode, _: typedesc[OfBranch]): bool =

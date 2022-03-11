@@ -1,4 +1,4 @@
-import nimnodes, utils
+import micros/[nimnodes, utils]
 import std/macros
 func `of`*(n: NimNode, _: typedesc[ElseBranch]): bool =
   n.checkit {nnkElse}

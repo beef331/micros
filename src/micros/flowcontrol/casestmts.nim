@@ -1,4 +1,4 @@
-import utils, nimnodes
+import micros/[utils, nimnodes]
 
 func `of`*(n: NimNode, _: typedesc[CaseStmt]): bool =
   n.checkIt {nnkCaseStmt}

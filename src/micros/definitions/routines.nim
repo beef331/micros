@@ -1,4 +1,5 @@
-import nimnodes, identdefs, utils
+import micros/[nimnodes, utils]
+import micros/definitions/identdefs
 import std/genasts
 
 type

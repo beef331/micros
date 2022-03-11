@@ -1,4 +1,4 @@
-import nimnodes, utils
+import micros/[nimnodes, utils]
 
 func `of`*(node: NimNode, _: typedesc[IdentDef]): bool =
   node.checkit({nnkIdentDefs})

@@ -85,6 +85,44 @@ suite "Flow Control Api":
     check makeCase(10) == 200
     check makeCase(3) == 60
 
+  test "Generate For Loop":
+    macro makeLoop(varName: untyped, countTo: static int) =
+      result = newStmtList()
+      result.add:
+        varStmt(NimName varName, 0)
+      result.add:
+        forLoop(ident"_"):
+          genAst(countTo):
+            0..<countTo
+        do:
+          genAst(varName):
+            inc varName
+    makeLoop(test1, 30)
+    makeLoop(test2, 10)
+    makeLoop(test3, 50)
+    check test1 == 30
+    check test2 == 10
+    check test3 == 50
+
+  test "Generate While Loop":
+    macro makeLoop(varName: untyped, countTo: static int) =
+      result = newStmtList()
+      result.add:
+        varStmt(NimName varName, 0)
+      result.add:
+        whileLoop():
+          genAst(varName, countTo):
+            varName < countTo
+        do:
+          genAst(varName):
+            inc varName
+    makeLoop(test1, 30)
+    makeLoop(test2, 10)
+    makeLoop(test3, 50)
+    check test1 == 30
+    check test2 == 10
+    check test3 == 50
+
 
 suite "Object Api":
   test "From Source":
