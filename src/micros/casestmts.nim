@@ -32,9 +32,6 @@ func add*(casStmt: CaseStmt, elseBranch: ElseBranch) =
   assert n[^1].kind != nnkElse
   n.add NimNode elseBranch
 
-macro add*(caseStmt: CaseStmt, toAdd: varargs[typed]) =
-  discard
-
 iterator branches*(caseStmt: CaseStmt): NimNode =
   let n = NimNode caseStmt
   if n.len > 1:
