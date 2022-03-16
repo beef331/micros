@@ -1,6 +1,6 @@
 import micros/[utils, nimnodes]
 
-func `of`*(n: NimNode, _: typedesc[CaseStmt]): bool =
+func isa*(n: NimNode, _: typedesc[CaseStmt]): bool =
   n.checkIt {nnkCaseStmt}
   n.checkIt 1..^1, {nnkOfBranch, nnkElifBranch, nnkElse}
 
@@ -8,6 +8,8 @@ func caseStmt*(n: NimNode): CaseStmt = n.checkConv CaseStmt
 
 func caseStmt*(delim: NimName): CaseStmt =
   CaseStmt nnkCaseStmt.newTree(NimNode delim)
+
+func discriminator*(casStmt: CaseStmt): NimNode = casStmt.NimNode[0]
 
 func add*(casStmt: CaseStmt, ofBranch: OfBranch) =
   let n = NimNode casStmt

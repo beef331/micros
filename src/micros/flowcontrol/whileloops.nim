@@ -2,9 +2,10 @@ import micros/[utils, nimnodes]
 import std/macros
 
 
-func `of`*(n: NimNode, _: typedesc[WhileLoop]): bool =
+func isa*(n: NimNode, _: typedesc[WhileLoop]): bool =
   n.checkit {nnkWhileStmt}
-  n.checkit 0..1, {nnkStmtList}
+  if n.len != 2:
+    return false
 
 func whileLoop*(n: NimNode): WhileLoop = n.checkConv WhileLoop
 

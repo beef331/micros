@@ -42,5 +42,6 @@ template checkIt*(node: NimNode, toCheck: NimNodeKinds) =
     return false
 
 template checkConv*(node: NimNode, typ: typedesc): auto =
-  assert `of`(node, typ)
+  assert isa(node, typ)
   typ(node)
+

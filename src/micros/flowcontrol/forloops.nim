@@ -3,10 +3,9 @@ import std/[macros, enumerate]
 
 const forParamKinds = {nnkIdent, nnkSym, nnkVarTuple}
 
-func `of`*(n: NimNode, _: typedesc[ForLoop]): bool =
+func isa*(n: NimNode, _: typedesc[ForLoop]): bool =
   n.checkit {nnkForStmt}
-  n.checkit 0..^2, forParamKinds
-  n.checkIt ^1, {nnkStmtList}
+  n.checkit 0..^3, forParamKinds
 
 func forloop*(n: NimNode): ForLoop = n.checkConv ForLoop
 

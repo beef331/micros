@@ -1,6 +1,6 @@
 import micros/[nimnodes, utils]
 
-func `of`*(n: NimNode, T: typedesc[VarDefs]): bool =
+func isa*(n: NimNode, T: typedesc[VarDefs]): bool =
   n.checkit:
     when T is VarDef:
       {nnkVarSection}
@@ -8,7 +8,11 @@ func `of`*(n: NimNode, T: typedesc[VarDefs]): bool =
       {nnkLetSection}
     else:
       {nnkConstSection}
-  n.checkit 0..^1, {nnkIdentdefs}
+  n.checkit 0..^1,
+    when T is ConstDef:
+      {nnkConstdef}
+    else:
+      {nnkIdentdefs}
 
 func varDef*(n: NimNode): VarDef = n.checkConv VarDef
 

@@ -3,7 +3,7 @@ import identdefs
 import std/[enumerate, options, genasts]
 export options
 
-func `of`*(n: NimNode, _: typedesc[ObjectDef]): bool =
+func isa*(n: NimNode, _: typedesc[ObjectDef]): bool =
   n.checkIt {nnkTypedef}
   n[^1].checkIt {nnkRefTy, nnkObjectTy}
   if n[^1].kind == nnkRefTy:

@@ -1,9 +1,8 @@
 import micros/[nimnodes, utils]
 import std/macros
 
-func `of`*(n: NimNode, _: typedesc[ElifBranch]): bool =
+func isa*(n: NimNode, _: typedesc[ElifBranch]): bool =
   n.checkit {nnkElifBranch}
-  n.checkit 0..^1, {nnkStmtList}
 
 func elifBranch*(n: NimNode): ElifBranch = n.checkConv ElifBranch
 

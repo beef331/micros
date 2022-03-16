@@ -1,9 +1,8 @@
 import micros/[nimnodes, utils, stmtlists]
 import std/macros
 
-func `of`(n: NimNode, _: typedesc[OfBranch]): bool =
+func isa*(n: NimNode, _: typedesc[OfBranch]): bool =
   n.checkit {nnkOfBranch}
-  n.checkit ^1, {nnkStmtList}
 
 func ofBranch*(n: NimNode): OfBranch = n.checkConv OfBranch
 
@@ -20,5 +19,5 @@ func addCondition*(ofBranch: OfBranch, cond: NimNode) =
 
 iterator conditions*(ofBranch: OfBranch): NimNode =
   let n = NimNode ofBranch
-  for i in 1 ..< n.len - 1:
-    yield n[i]
+  for cond in n[0..^2]:
+    yield cond

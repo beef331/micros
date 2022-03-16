@@ -1,6 +1,6 @@
 import micros/[nimnodes, utils]
 
-func `of`*(node: NimNode, _: typedesc[IdentDef]): bool =
+func isa*(node: NimNode, _: typedesc[IdentDef]): bool =
   node.checkit({nnkIdentDefs})
   node.checkit(0..^3, {nnkIdent, nnkSym})
 

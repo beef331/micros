@@ -10,14 +10,14 @@ type
     rtMacro
     rtTemplate
 
-func `of`*(n: NimNode): bool =
+func isa*(n: NimNode, _: typedesc[RoutineNode]): bool =
   n.checkit RoutineNodes
   n.checkit 0, {nnkPragmaExpr, nnkPostfix, nnkIdent, nnkSym} # name
   n.checkit 1, {nnkEmpty, nnkStmtList} # constraint
   n.checkit 2, {nnkGenericParams, nnkEmpty} # generic params
   n.checkit 3, {nnkFormalParams} # formal Params
   n.checkit 4, {nnkEmpty, nnkPragma} # pragmas
-  n.checkit ^1, {nnkStmtList} # Perhaps bad
+  #n.checkit ^1, {nnkStmtList} # Perhaps bad
 
 func routineNode*(n: NimNode): RoutineNode = n.checkConv RoutineNode
 

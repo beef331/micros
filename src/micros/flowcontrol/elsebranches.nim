@@ -1,8 +1,9 @@
 import micros/[nimnodes, utils]
 import std/macros
-func `of`*(n: NimNode, _: typedesc[ElseBranch]): bool =
+func isa*(n: NimNode, _: typedesc[ElseBranch]): bool =
   n.checkit {nnkElse}
-  n.checkit 0, {nnkStmtList}
+  if n.len != 1:
+    return false
 
 func elseBranch*(n: NimNode): ElseBranch =
   if n.kind != nnkElse:

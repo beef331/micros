@@ -3,7 +3,7 @@ import nimnodes, utils
 func pragmaVal(name: string, val: auto): PragmaVal =
   PragmaVal newColonExpr(ident name, newLit val)
 
-func `of`*(n: NimNode): bool = n.checkit {nnkExprColonExpr, nnkIdent, nnkSym}
+func isa*(n: NimNode, _: typedesc[PragmaVal]): bool = n.checkit {nnkExprColonExpr, nnkIdent, nnkSym}
 
 func pragmaVal(n: NimNode): PragmaVal = n.checkConv PragmaVal
 
