@@ -258,3 +258,33 @@ suite  "EnumDefs":
     let
       a = MyOuter.right
       b = MyOuter.up
+
+  test "Get enum type":
+    type
+      MyEnum = enum
+        a, b, c
+      MyObj = object
+       aField: MyEnum
+    macro getEType(a: typed): untyped =
+      let
+        a =
+          if a.kind == nnkDotExpr:
+            a[^1]
+          else:
+            a
+      let def = a.enumDef
+      result = NimNode def.name
+
+    check a.getEType is MyEnum
+
+    var myVar = a
+    let mylet = a
+    const myConst = a
+
+    check myVar.getEType is MyEnum
+    check myLet.getEType is MyEnum
+    check myConst.getEType is MyEnum
+
+    var myObj = MyObj()
+
+    check myObj.aField.getEType is MyEnum

@@ -23,9 +23,13 @@ type
 
   StmtList* = distinct NimNode
   StmtSubTypes* = VarDefs or StmtList or RoutineNode or NimNode
+  TypeDefs* = EnumDef or ObjectDef
   DistinctNimNode* = concept d
     d.distinctBase is NimNode
   NimNodes* = DistinctNimNode or NimNode
+
+const
+  VariableSyms* = {nskForVar, nskParam, nskVar, nskConst, nskLet, nskResult, nskTemp, nskField}
 
 func exported*(name: string or NimNode): NimName =
   let name =

@@ -11,8 +11,11 @@ func enumdef*(n: NimNode): EnumDef =
       case n.symKind
       of nskType:
         n.getImpl()
+      of VariableSyms, nskEnumField:
+        n.getTypeInst().getImpl
       else:
-        n.getTypeInst.getImpl
+        error("Invalid Enum Symbol: '" & $n.symKind & "'.", n)
+        return
     else:
       n
   n.checkConv EnumDef
@@ -25,7 +28,6 @@ func enumDef*(name: string or NimName, fields: seq[NimNode]): EnumDef =
       NimNode name
 
   EnumDef newEnum(name, fields, false, false)
-
 
 iterator fields*(enmDf: EnumDef): EnumField =
   let n = NimNode enmDf
