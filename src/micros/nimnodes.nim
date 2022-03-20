@@ -15,6 +15,7 @@ type
   OfBranch* = distinct NimNode
   WhileLoop* = distinct NimNode
   ForLoop* = distinct NimNode
+  EnumField* = distinct NimNode
 
   VarDefs* = VarDef or LetDef or ConstDef
 

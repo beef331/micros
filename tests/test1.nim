@@ -234,3 +234,26 @@ suite "Object Api":
 
 
 
+suite  "EnumDefs":
+  test "prestige inspired macro":
+
+    macro generateMySafeEnum(n: typedesc[enum], typeName: untyped): untyped =
+      result = newStmtList()
+      result.add:
+        genast(typeName, n):
+          type typeName = distinct n
+      for field in enumDef(n).fields:
+        let newPrc = routineNode($field.name, rtTemplate)
+        newPrc.addParam:
+          identDef newIdentDefs(ident"_", nnkBracketExpr.newTree(ident"typedesc", typeName))
+        newPrc.returnType = typeName
+        newPrc.addToBody:
+          genast(field = NimNode field, typeName):
+            typeName field
+        result.add newPrc
+    type MyInnerEnum = enum
+      left, right, up, down
+    generateMySafeEnum(MyInnerEnum, MyOuter)
+    let
+      a = MyOuter.right
+      b = MyOuter.up

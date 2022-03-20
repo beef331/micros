@@ -3,7 +3,7 @@ import micros/definitions/identdefs
 import std/genasts
 
 type
-  RoutineType = enum
+  RoutineType* = enum
     rtProc
     rtFunc
     rtIter
@@ -45,6 +45,8 @@ func routineNode*(name: NimName or string, typ = rtProc): RoutineNode =
 func strName*(r: RoutineNode): string = $NimNode(r)[0]
 
 func returnType*(r: RoutineNode): NimNode = NimNode(r)[3][0]
+func `returnType=`*(r: RoutineNode, newType: NimNode) = NimNode(r)[3][0] = newType
+
 
 func param*(r: RoutineNode, toGetInd: int): IdentDef =
   var ind = 0
