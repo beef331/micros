@@ -9,14 +9,20 @@ func identDef*(n: NimNode): IdentDef = n.checkConv IdentDef
 func identDefTyp(name: string, typ: typedesc): IdentDef =
   IdentDef newIdentDefs(ident name, typ.getType)
 
-func identDefVal(name: string, val: auto): IdentDef =
+func identDefVal(name: string, val: not typedesc and not NimNode): IdentDef =
   IdentDef newIdentDefs(ident name, newEmptyNode(), newLit(val))
 
 func isSingle*(iDef: IdentDef): bool = NimNode(iDef).len == 3
 
-template identDef*(name: string, typ: typedesc): untyped = identDefTyp(name, typ)
+template identDef*(name: string, typ: typedesc and not NimNode): untyped = identDefTyp(name, typ)
 
-template identDef*(name: string, val: not typedesc): untyped = identDefVal(name, val)
+template identDef*(name: string, val: not typedesc and not NimNode): untyped = identDefVal(name, val)
+
+func identDefTyp*(name: string, typ: NimNode): IdentDef =
+  identDef nnkIdentDefs.newTree(ident(name),newEmptyNode(), typ)
+
+func identDefVal*(name: string, val: NimNode): IdentDef =
+  identDef nnkIdentDefs.newTree(ident(name), val, newEmptyNode())
 
 func typ*(n: IdentDef): NimNode = NimNode(n)[^2]
 

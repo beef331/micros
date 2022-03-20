@@ -25,6 +25,8 @@ iterator `[]`*(n: NimNodes, slice: Slice[BackwardsIndex]): NimNode =
 func castTo*(node: NimNodes, typ: typedesc): NimNode =
   nnkCast.newTree(typ.getType[^1], NimNode node)
 
+func makeTypeDesc*(n: NimNode): NimNode = nnkBracketExpr.newTree(ident"typedesc", n)
+
 template checkIt*(node: NimNode, op: HSlice, toCheck: NimNodeKinds) =
   result = true
   for child in node[op]:

@@ -245,12 +245,13 @@ suite  "EnumDefs":
       for field in enumDef(n).fields:
         let newPrc = routineNode($field.name, rtTemplate)
         newPrc.addParam:
-          identDef newIdentDefs(ident"_", nnkBracketExpr.newTree(ident"typedesc", typeName))
+          identDefTyp("_", makeTypeDesc(typeName))
         newPrc.returnType = typeName
         newPrc.addToBody:
           genast(field = NimNode field, typeName):
             typeName field
         result.add newPrc
+
     type MyInnerEnum = enum
       left, right, up, down
     generateMySafeEnum(MyInnerEnum, MyOuter)
