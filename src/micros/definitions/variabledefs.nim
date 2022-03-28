@@ -1,4 +1,7 @@
 import micros/[nimnodes, utils]
+import micros/definitions/identdefs
+import micros/[pragmas, nimnames]
+import std/enumerate
 
 func isa*(n: NimNode, T: typedesc[VarDefs]): bool =
   n.checkit:
@@ -47,4 +50,12 @@ func letStmt*(name: string or NimName, val: auto): LetDef =
   else:
     LetDef newLetStmt(name, newLit val)
 
-## Todo implemenet const method and support tuples
+iterator identdefs*(def: VarDefs): IdentDef =
+  for idef in NimNode def:
+    yield identDef(idef)
+
+func add*(def: VarDefs, prag: PragmaVal) =
+  for idef in def.identdefs:
+    for i, name in enumerate idef.names:
+      idef.NimNode[i] = NimNode name.copyWithPragma prag
+
