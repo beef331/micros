@@ -45,6 +45,10 @@ func val*(n: IdentDef): NimNode =
   ## Retrieves the value of `n`
   NimNode(n)[^1]
 
+func `val=`*(n: IdentDef, newVal: NimNode) =
+  ## Sets the value of `n` to `newVal`
+  NimNode(n)[^1] = newVal
+
 func name*(n: IdentDef, ind = 0): NimName =
   ## Returns the first name of `n`, should be used with `isSingle`
   NimName NimNode(n)[ind]
