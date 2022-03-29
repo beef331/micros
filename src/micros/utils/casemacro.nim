@@ -4,6 +4,8 @@ import std/[macros, sugar, genasts]
 {.experimental: "caseStmtMacros".}
 
 macro `case`*(n: NimNode): untyped =
+  ## Easy to use case statment macro.
+  ## Allows using distinc NimNodes as of conditions and converts to that type internally.
   let
     myStmt = caseStmt(n)
     discrim = myStmt.discriminator

@@ -4,11 +4,18 @@ import std/macros
 func isa*(n: NimNode, _: typedesc[ElifBranch]): bool =
   n.checkit {nnkElifBranch}
 
-func elifBranch*(n: NimNode): ElifBranch = n.checkConv ElifBranch
+func elifBranch*(n: NimNode): ElifBranch =
+  ## Ensures `n` isa `ElifBranch` and then converts to it.
+  n.checkConv ElifBranch
 
-func elifBranch*(n, body: NimNode): ElifBranch =
-  elifBranch nnkElifBranch.newTree(n, body)
+func elifBranch*(cond, body: NimNode): ElifBranch =
+  ## Generates an `ElifBranch` from two `NimNode`s.
+  elifBranch nnkElifBranch.newTree(cond, body)
 
-func condition*(elifBranch: ElifBranch): NimNode = elifBranch.NimNode[0]
+func condition*(elifBranch: ElifBranch): NimNode =
+  ## Retrieves the condition from `elifBranch`
+  elifBranch.NimNode[0]
 
-func stmtList*( elifBranch: ElifBranch): NimNode = elifBranch.NimNode[1]
+func stmtList*(elifBranch: ElifBranch): NimNode =
+  ## Retrieves the body of the `elifBranch`
+  elifBranch.NimNode[1]

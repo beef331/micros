@@ -1,10 +1,12 @@
 import micros/[utils, nimnodes, enumfields]
 import std/enumerate
+
 func isa*(n: NimNode, _: typedesc[EnumDef]): bool =
   n.checkit {nnkTypeDef, nnkEnumTy}
   n.checkIt ^1, {nnkEnumTy}
 
 func enumdef*(n: NimNode): EnumDef =
+  ## Ensures `n` isa `EnumDef` and then converts to it.
   let n =
     case n.kind
     of nnkSym:
@@ -21,6 +23,7 @@ func enumdef*(n: NimNode): EnumDef =
   n.checkConv EnumDef
 
 func enumDef*(name: string or NimName, fields: seq[NimNode]): EnumDef =
+  ## Generates a new `enumDef` with `name` and `fields`
   let name =
     when name is string:
       ident name
@@ -30,6 +33,7 @@ func enumDef*(name: string or NimName, fields: seq[NimNode]): EnumDef =
   EnumDef newEnum(name, fields, false, false)
 
 iterator fields*(enmDf: EnumDef): EnumField =
+  ## Iterates all the fields of `enmDf`
   let n = NimNode enmDf
   for i, x in enumerate n[^1]:
     if i > 0:

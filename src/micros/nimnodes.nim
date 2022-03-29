@@ -32,6 +32,7 @@ const
   VariableSyms* = {nskForVar, nskParam, nskVar, nskConst, nskLet, nskResult, nskTemp, nskField}
 
 func exported*(name: string or NimNode): NimName =
+  ## Creates an exported NimName
   let name =
     when name is string:
       ident name

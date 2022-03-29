@@ -6,9 +6,12 @@ func isa*(n: NimNode, _: typedesc[ElseBranch]): bool =
     return false
 
 func elseBranch*(n: NimNode): ElseBranch =
+  ## Ensures `n` isa `ElseBranch` and then converts to it.
   if n.kind != nnkElse:
     ElseBranch nnkElse.newTree(n)
   else:
     n.checkConv ElseBranch
 
-func stmtList*(elseBranch: ElseBranch): NimNode = elseBranch.NimNode[0]
+func stmtList*(elseBranch: ElseBranch): NimNode =
+  ## Retrieves the body of `elseBranch`
+  elseBranch.NimNode[0]

@@ -7,24 +7,31 @@ func isa*(n: NimNode, _: typedesc[ForLoop]): bool =
   n.checkit {nnkForStmt}
   n.checkit 0..^3, forParamKinds
 
-func forloop*(n: NimNode): ForLoop = n.checkConv ForLoop
+func forloop*(n: NimNode): ForLoop =
+  ## Ensures `n` isa `FoorLoop` and then converts to it.
+  n.checkConv ForLoop
 
 func forLoop*(params, iter, body: Nimnode): ForLoop =
   ForLoop nnkForStmt.newTree(params, iter, body)
 
 func add*(forLoop: ForLoop, name: NimName) =
+  ## Adds a for loop variable named `name` to `forLoop`.
   let n = NimNode forLoop
   n.insert n.len - 3, NimNode name # Place this after all other parameters
 
 func delete*(forLoop: ForLoop, name: NimName) =
+  ## Removes a forloop variable named `name` from `forLoop`.
   for i, node in enumerate forLoop[0..^3]:
     if node.eqIdent NimNode name:
       forLoop.NimNode.del(i, 1)
       break
 
-func `body=`(forLoop: ForLoop, body: NimNode) = forLoop.NimNode[^1] = body
+func `body=`(forLoop: ForLoop, body: NimNode) =
+  ## Sets the body of `forLoop` to `body`.
+  forLoop.NimNode[^1] = body
 
-iterator parameters*(forLoop: ForLoop): NimName =
+iterator variables*(forLoop: ForLoop): NimName =
+  ## Yields all for loop variables of `forLoop`
   for i, node in enumerate forLoop[0..^3]:
     case node.kind
     of nnkIdent, nnkSym:

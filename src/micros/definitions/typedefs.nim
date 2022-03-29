@@ -1,6 +1,7 @@
 import micros/[utils, nimnodes]
 
 func `name=`*(obj: TypeDefs, newName: NimName or string) =
+  ## Sets the `name` of the `obj` typedef
   let
     newName =
       when newName is NimName:
@@ -21,6 +22,7 @@ func `name=`*(obj: TypeDefs, newName: NimName or string) =
     obj[0][1] = newName
 
 func `name`*(obj: TypeDefs): NimName =
+  ## Retrieves the `name` of the `obj` typedef
   let obj = NimNode obj
   NimName(
     case obj[0].kind

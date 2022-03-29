@@ -3,7 +3,7 @@ import micros/definitions/identdefs
 import std/genasts
 
 type
-  RoutineType* = enum
+  RoutineType* = enum ## Used for instantiation of types
     rtProc
     rtFunc
     rtIter
@@ -19,9 +19,12 @@ func isa*(n: NimNode, _: typedesc[RoutineNode]): bool =
   n.checkit 4, {nnkEmpty, nnkPragma} # pragmas
   #n.checkit ^1, {nnkStmtList} # Perhaps bad
 
-func routineNode*(n: NimNode): RoutineNode = n.checkConv RoutineNode
+func routineNode*(n: NimNode): RoutineNode =
+  ## Ensures `n` isa `RoutineNode` and then converts to it.
+  n.checkConv RoutineNode
 
 func routineNode*(name: NimName or string, typ = rtProc): RoutineNode =
+  ## Constructs a RoutineNode with the given `name` and of `typ`
   let name = name.toName.NimNode
   result =
     routineNode:
@@ -42,13 +45,28 @@ func routineNode*(name: NimName or string, typ = rtProc): RoutineNode =
         genast(name):
           template name()
 
-func strName*(r: RoutineNode): string = $NimNode(r)[0]
+func strName*(r: RoutineNode): string =
+  ## Retrieves the string name of `r`
+  let n = NimNode(r)
+  case n[0].kind
+  of nnkSym, nnkIdent:
+    result = $n[0]
+  of nnkPostfix:
+    result = $n[0][1]
+  else:
+    assert false, $n[0].kind
 
-func returnType*(r: RoutineNode): NimNode = NimNode(r)[3][0]
-func `returnType=`*(r: RoutineNode, newType: NimNode) = NimNode(r)[3][0] = newType
+func returnType*(r: RoutineNode): NimNode =
+  ## Gets the return type of `r`
+  NimNode(r)[3][0]
+
+func `returnType=`*(r: RoutineNode, newType: NimNode) =
+  ## Sets the return type of `r` to `newType`
+  NimNode(r)[3][0] = newType
 
 
 func param*(r: RoutineNode, toGetInd: int): IdentDef =
+  ## Returns the parameter at `toGetIndex`, only a single paramter is returned.
   var ind = 0
   for i, iDef in NimNode(r)[3]:
     if i > 0:
@@ -88,6 +106,7 @@ func setParamType*(r: RoutineNode, index: int, newType: NimNode, replaceOne = tr
         inc ind
 
 func addGeneric*(r: RoutineNode, generic: IdentDef) =
+  ## Adds generic parameter `generric` to `r`
   assert NimNode(generic)[2].kind == nnkEmpty
   if NimNode(r)[2].kind == nnkEmpty:
     NimNode(r)[2] = nnkGenericParams.newTree(NimNode generic)
@@ -95,23 +114,32 @@ func addGeneric*(r: RoutineNode, generic: IdentDef) =
     NimNode(r)[2].add NimNode generic
 
 func addParam*(r: RoutineNode, param: IdentDef) =
-  NimNode(r)[3].add NimNode(param)
+  ## Adds a normal parameter to `RoutineNode`.
+  NimNode(r)[3].add:
+    if NimNode(r)[3].len == 0:
+      @[newEmptyNode(), NimNode param]
+    else:
+      @[NimNode(param)]
 
 func add*(r: RoutineNode, pragma: PragmaVal) =
+  ## Adds pragma `pragma` to `r`
   if NimNode(r)[4].kind == nnkEmpty:
      NimNode(r)[4] = nnkPragma.newTree(NimNode pragma)
   else:
     NimNode(r)[4].add NimNode pragma
 
 func insert*(r: RoutineNode, i: int, val: StmtSubTypes) =
+  ## Inserts a value into the body of `r`
   {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
   NimNode(r)[^1].insert i, NimNode val
 
 func body*(r: RoutineNode): StmtList =
+  ## Retrieves the body of `r`
   {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
   StmtList NimNode(r)[^1]
 
 func addToBody*(r: RoutineNode, toAdd: StmtSubTypes) =
+  ## Adds a statement to the end of `r`'s `body`
   {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
   case NimNode(r)[^1].kind
   of nnkStmtList:
@@ -120,14 +148,17 @@ func addToBody*(r: RoutineNode, toAdd: StmtSubTypes) =
     NimNode(r)[^1] = newStmtList(NimNode r.body, NimNode toAdd)
 
 iterator params*(r: RoutineNode): IdentDef =
+  ## Iterates the parameters of `r`, not yielding the return type.
   for i, x in NimNode(r).params:
     if i > 0:
       yield IdentDef(x)
 
 iterator genericParams*(r: RoutineNode): IdentDef =
+  ## Iterates the generic parameters of `r`.
   for i in NimNode(r)[2]:
     yield IdentDef(i)
 
 iterator pragmas*(r: RoutineNode): PragmaVal =
+  ## Iterates the pragmas of `r`.
   for p in NimNode(r)[4]:
     yield PragmaVal(p)

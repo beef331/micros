@@ -10,10 +10,16 @@ func isa*(n: NimNode, _: typedesc[ObjectDef]): bool =
     n[^1][0].checkit {nnkObjectTy}
 
 func objectDef*(n: NimNode): ObjectDef =
+  ## Ensures `n` isa `ObjectDef` and then converts to it.
   let n =
     case n.kind
     of nnkSym:
-      n.getTypeInst.getImpl
+      let typ = n.getType()
+      case typ.typeKind
+      of ntyTypeDesc:
+        n.getImpl
+      else:
+        n.getTypeInst.getImpl
     of nnkObjConstr:
       n[0].getImpl
     else:
@@ -21,6 +27,9 @@ func objectDef*(n: NimNode): ObjectDef =
   n.checkConv ObjectDef
 
 func objectDef*(name: string or NimName, isRef = false, parent: NimName or NimNode = newEmptyNode()): ObjectDef =
+  ## Makes a new object definition.
+  ## `isRef` makes it a reference.
+  ## `parent` not being empty is written as `object of parent`.
   let
     name =
       when name is string:
@@ -50,18 +59,22 @@ func objectDef*(name: string or NimName, isRef = false, parent: NimName or NimNo
   ObjectDef res[0]
 
 proc recList*(obj: ObjectDef): auto =
+  ## Retrieves the reclist of `obj`
   if obj.NimNode[^1].kind == nnkRefTy:
     obj.NimNode[^1][0][2]
   else:
     obj.NimNode[^1][2]
 
 proc `recList=`*(obj: ObjectDef, val: NimNode) =
+  ## Set the rectlist of `obj` to val.
   if obj.NimNode[^1].kind == nnkRefTy:
     obj.NimNode[^1][0][2] = val
   else:
     obj.NimNode[^1][2] = val
 
 func inheritObj*(obj: ObjectDef): Option[ObjectDef] =
+  ## Returns `some(ObjectDef)` if `obj` inherits,
+  ## otherwise `none(ObjectDef)`
   let inherit =
     if obj.NimNode[^1].kind == nnkRefTy:
       obj.NimNode[^1][0][1]
@@ -72,6 +85,7 @@ func inheritObj*(obj: ObjectDef): Option[ObjectDef] =
     result = some objectDef(inherit[0])
 
 func addGeneric*(obj: ObjectDef, newGenParam: IdentDef) =
+  ## Adds generic paramater `newGenParam` to `obj`.
   let gParams = NimNode(obj)[1]
   case gParams.kind
   of nnkGenericParams:
@@ -80,6 +94,7 @@ func addGeneric*(obj: ObjectDef, newGenParam: IdentDef) =
     NimNode(obj)[1] = nnkGenericParams.newTree(NimNode newGenParam)
 
 func add*(obj: ObjectDef, pragma: PragmaVal) =
+  ## Adds the pragma `pragma` to `obj`.
   case obj.Nimnode[0].kind
   of nnkPragmaExpr:
     obj.NimNode[0].add NimNode pragma
@@ -87,6 +102,7 @@ func add*(obj: ObjectDef, pragma: PragmaVal) =
     obj.NimNode[0] = nnkPragmaExpr.newTree(obj.NimNode[0], NimNode pragma)
 
 func makeAccessCond(n, obj, field: NimNode): NimNode =
+  ## Helper for fieldConditions, generating the access logic for a condition.
   template setResult(to: NimNode) =
     if result.kind == nnkNilLit:
       result = to
@@ -105,7 +121,7 @@ func makeAccessCond(n, obj, field: NimNode): NimNode =
 
 
 func fieldConditions(obj, list: NimNode, field: NimName or string, cond: NimNode): NimNode =
-
+  ## Retrieves conditions that must be true to access `field`
   if list.kind == nnkIdentDefs:
     for name in list.identDef.names:
       if name == field:
@@ -143,11 +159,13 @@ func fieldConditions(obj, list: NimNode, field: NimName or string, cond: NimNode
     else: discard
 
 func fieldConditions*(obj: NimNode, field: NimName or string): NimNode =
+  ## Retrieves conditions that must be true to access `field`
   fieldConditions(obj, obj.objectDef.recList, field, newLit(true))
 
 ## Todo handle fields inside recCase and reclist
 
 func addField*(obj: ObjectDef, field: IdentDef) =
+  ## Adds identdef `field` to `obj`'s top level reclist
   let
     n = NimNode obj
   case obj.recList.kind
@@ -159,6 +177,7 @@ func addField*(obj: ObjectDef, field: IdentDef) =
     obj.recList.add NimNode(field)
 
 func delField*(obj: ObjectDef, fieldName: string) =
+  ## Deletes field named `fieldName`
   for i, idef in obj.recList:
     if idef.kind == nnkIdentDefs:
       let idef = identDef(idef)
@@ -173,6 +192,8 @@ func delField*(obj: ObjectDef, fieldName: string) =
             return
 
 proc collectBranchFields(n: NimNode): seq[IdentDef] =
+  ## Gets all the branch fields in a def
+  ## should do it iteratively instead of storing in a seq
   case n.kind:
   of nnkIdentDefs:
     result.add identDef n
@@ -186,12 +207,14 @@ proc collectBranchFields(n: NimNode): seq[IdentDef] =
   else: discard
 
 iterator inheritObjs*(obj: ObjectDef): ObjectDef =
+  ## Walks up the `obj`'s inheritance tree at the object that inherits from RootObj`
   var parent = obj.inheritObj
   while parent.isSome:
     yield parent.get
     parent = parent.get.inheritObj
 
 iterator fields*(obj: ObjectDef): IdentDef =
+  ## Iterates all fields including parent fields of `obj`
   for def in obj.recList:
     case def.kind
     of nnkIdentDefs:
@@ -205,6 +228,7 @@ iterator fields*(obj: ObjectDef): IdentDef =
       yield iDef
 
 iterator pragmas*(obj: ObjectDef): PragmaVal =
+  ## Iterates all pragmas applied to `obj`
   case obj.NimNode[0].kind
   of nnkPragmaExpr:
     for i in 1..<obj.NimNode[0].len:
@@ -212,5 +236,6 @@ iterator pragmas*(obj: ObjectDef): PragmaVal =
   else: discard
 
 iterator genericParams*(obj: ObjectDef): IdentDef =
+  ## Iterates all generic parameters of `obj`
   for def in NimNode(obj)[1]:
     yield IdentDef def
