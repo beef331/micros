@@ -22,7 +22,7 @@ type
   NimName* = distinct NimNode
 
   StmtList* = distinct NimNode
-  StmtSubTypes* = VarDefs or StmtList or RoutineNode or NimNode
+  StmtSubTypes* = NimNode or DistinctNimNode
   TypeDefs* = EnumDef or ObjectDef
   DistinctNimNode* = concept d
     d.distinctBase is NimNode

@@ -105,6 +105,16 @@ func setParamType*(r: RoutineNode, index: int, newType: NimNode, replaceOne = tr
           return
         inc ind
 
+func insertIdentDef*(r: RoutineNode, index: int, param: IdentDef)=
+  ## Inserts `param` into the formal params of `r`.
+  ## Index `0` is the first param not the return type.
+  r.NimNode.params.insert(index + 1, NimNode param)
+
+func deleteIdentDef*(r: RoutineNode, index: int) =
+  ## Deletes the `index` from `r`'s formal params.
+  ## Index `0` is the first param not the return type.
+  r.NimNode.params.del(index)
+
 func addGeneric*(r: RoutineNode, generic: IdentDef) =
   ## Adds generic parameter `generric` to `r`
   assert NimNode(generic)[2].kind == nnkEmpty
