@@ -26,12 +26,12 @@ template identDef*(name: string, typ: typedesc and not NimNode): untyped = ident
 template identDef*(name: string, val: not typedesc and not NimNode): untyped = identDefVal(name, val)
 
 func identDefTyp*(name: string, typ: NimNode): IdentDef =
-  ## Generates an `IdentDef`with a type of `typ`
-  identDef nnkIdentDefs.newTree(ident(name),newEmptyNode(), typ)
+  ## Generates an `IdentDef` with a type of `typ`
+  identDef nnkIdentDefs.newTree(ident(name), typ, newEmptyNode())
 
 func identDefVal*(name: string, val: NimNode): IdentDef =
   ## Generates an `IdentDef` with a value of `val`
-  identDef nnkIdentDefs.newTree(ident(name), val, newEmptyNode())
+  identDef nnkIdentDefs.newTree(ident(name), newEmptyNode(), val)
 
 func typ*(n: IdentDef): NimNode =
   ## Retrieves the type of `n`
