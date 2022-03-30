@@ -37,7 +37,7 @@ func typ*(n: IdentDef): NimNode =
   ## Retrieves the type of `n`
   NimNode(n)[^2]
 
-func `typ=`*(n: IdentDef, newTyp: NimNode): NimNode =
+func `typ=`*(n: IdentDef, newTyp: NimNode) =
   ## Sets the `type` of `n`
   NimNode(n)[^2] = newTyp
 
