@@ -10,6 +10,7 @@ type
   PragmaVal* = distinct NimNode
   CaseStmt* = distinct NimNode
   IfStmt* = distinct NimNode
+  WhenStmt* = distinct NimNode
   ElIfBranch* = distinct NimNode
   ElseBranch* = distinct NimNode
   OfBranch* = distinct NimNode
