@@ -35,7 +35,6 @@ suite "Apply":
           result.add NimNode makeWhen(args, stmt)
         else:
           result.add stmt
-      echo result.repr
 
     type Drawing = object
       data: int
