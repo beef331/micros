@@ -10,6 +10,18 @@ type
     rtMacro
     rtTemplate
 
+func isa*(n: NimNode, _: typedesc[RoutineSym]): bool =
+  n.checkit {nnkSym, nnkOpenSymChoice, nnkClosedSymChoice}
+  case n.kind
+  of nnkSym:
+    if n.symKind notin {nskProc, nskTemplate, nskMacro}:
+      return false
+  else:
+    if n[0].symKind notin {nskProc, nskTemplate, nskMacro}:
+      return false
+
+func routineSym*(n: NimNode): RoutineSym = n.checkConv RoutineSym
+
 func isa*(n: NimNode, _: typedesc[RoutineNode]): bool =
   n.checkit RoutineNodes
   n.checkit 0, {nnkPragmaExpr, nnkPostfix, nnkIdent, nnkSym} # name
@@ -172,3 +184,13 @@ iterator pragmas*(r: RoutineNode): PragmaVal =
   ## Iterates the pragmas of `r`.
   for p in NimNode(r)[4]:
     yield PragmaVal(p)
+
+iterator routines*(routineSym: RoutineSym): RoutineNode =
+  let node = NimNode routineSym
+  case node.kind
+  of nnkSym:
+    yield RoutineNode node.getImpl
+  else:
+    for sym in node:
+      yield RoutineNode sym.getImpl
+

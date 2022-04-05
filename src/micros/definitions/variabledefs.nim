@@ -1,6 +1,5 @@
-import micros/[nimnodes, utils]
+import micros/[nimnodes, utils, nimnames]
 import micros/definitions/identdefs
-import micros/[pragmas, nimnames]
 import std/enumerate
 
 func isa*(n: NimNode, T: typedesc[VarDefs]): bool =

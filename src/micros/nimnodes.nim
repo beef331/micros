@@ -1,21 +1,27 @@
 import std/[macros, typetraits]
 type
   RoutineNode* = distinct NimNode
+  RoutineSym* = distinct NimNode
+
   IdentDef* = distinct NimNode
   VarDef* = distinct NimNode
   LetDef* = distinct NimNode
   ConstDef* = distinct NimNode
   ObjectDef* = distinct NimNode
   EnumDef* = distinct NimNode
+
   PragmaVal* = distinct NimNode
+
   CaseStmt* = distinct NimNode
   IfStmt* = distinct NimNode
   WhenStmt* = distinct NimNode
   ElIfBranch* = distinct NimNode
   ElseBranch* = distinct NimNode
   OfBranch* = distinct NimNode
+
   WhileLoop* = distinct NimNode
   ForLoop* = distinct NimNode
+
   EnumField* = distinct NimNode
 
   VarDefs* = VarDef or LetDef or ConstDef

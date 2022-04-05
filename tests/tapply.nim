@@ -3,17 +3,12 @@ import std/[macros, unittest]
 
 suite "Apply":
   test"Easy Impl":
-    proc matchesArgAux(prc, t: NimNode): bool =
-      case prc.kind
-      of nnkSym:
-        let impl = routineNode(prc.getImpl())
-        result = impl.param(0).typ.sameType(t.getType)
-      else:
-        for myProc in prc:
-          if matchesArgAux(myProc, t):
-            return true
+    proc matchesArgAux(prc: RoutineSym, t: NimNode): bool =
+      for myProc in prc.routines:
+        if myProc.param(0).typ.sameType(t.getType):
+          return true
 
-    macro matchesArg(myProc, t: typed): untyped = newLit matchesArgAux(myProc, t)
+    macro matchesArg(myProc, t: typed): untyped = newLit matchesArgAux(routineSym myProc, t)
 
     proc makeWhen(args, call: NimNode): WhenStmt =
       result = whenStmt()
