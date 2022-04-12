@@ -30,3 +30,9 @@ func copyWithPragma*(name: NimName, prag: PragmaVal): NimName =
     result =
       nimname:
         nnkPragmaExpr.newTree(n, nnkPragma.newTree(NimNode(prag)))
+
+iterator pragmas*(name: NimName): PragmaVal =
+  let n = NimNode name
+  if n.kind == nnkPragmaExpr:
+    for x in n[^1]:
+      yield PragmaVal x

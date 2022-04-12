@@ -1,6 +1,6 @@
 # Todo, make macro to automate this
 
-import micros/[utils, pragmas, stmtlists, nimnodes, enumfields]
+import micros/[utils, pragmas, stmtlists, nimnodes, enumfields, nimnames]
 import micros/definitions/[identdefs, objectdefs, routines, variabledefs, enumdefs, typedefs]
 import micros/flowcontrol/[casestmts, elifbranches, elsebranches, ofBranches, forloops, whileloops, whenstmts]
 
@@ -22,4 +22,5 @@ export
   enumfields,
   enumdefs,
   typedefs,
-  whenstmts
+  whenstmts,
+  nimnames

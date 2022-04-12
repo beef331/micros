@@ -177,3 +177,20 @@ suite  "EnumDefs":
     var myObj = MyObj()
 
     check myObj.aField.getEType is MyEnum
+
+suite"Identdef":
+  test"GetPragmas":
+    template reactive {.pragma.}
+
+    macro isReactive(x: typed{sym}): untyped =
+      if x.symKind notin {nskVar, nskConst, nskLet, nskForvar}:
+        error("Only works with variables", x)
+      for pragma in x.identDef.name(0).pragmas:
+        if not pragma.hasVal and pragma.isNamed"reactive":
+          return newLit true
+      return newLit false
+
+    var counter {.reactive.} = 100
+    let someOther = 300
+    assert counter.isReactive
+    assert not someOther.isReactive

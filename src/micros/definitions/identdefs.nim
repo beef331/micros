@@ -1,12 +1,18 @@
 import micros/[nimnodes, utils]
 
 func isa*(node: NimNode, _: typedesc[IdentDef]): bool =
-  node.checkit({nnkIdentDefs})
-  node.checkit(0..^3, {nnkIdent, nnkSym})
+  if node.kind == nnkSym and node.symKind in {nskForVar, nskLet, nskVar, nskConst}:
+    result = true
+  else:
+    node.checkit({nnkIdentDefs})
+    node.checkit(0..^3, {nnkIdent, nnkSym, nnkPragmaExpr})
 
 func identDef*(n: NimNode): IdentDef =
   ## Ensures `n` isa `IdentDef` and then converts to it.
-  n.checkConv IdentDef
+  if n.kind == nnkSym and n.symKind in {nskForVar, nskLet, nskVar, nskConst}:
+    n.getImpl.checkConv IdentDef
+  else:
+    n.checkConv IdentDef
 
 func identDefTyp(name: string, typ: typedesc): IdentDef =
   ## Generates an `IdentDef` of `name: typ`
@@ -63,5 +69,5 @@ func addVar*(n: IdentDef, name: NimNode or string) =
 iterator names*(idef: IdentDef): NimName =
   ## Iterates all names inside `idef`.
   let n = NimNode(idef)
-  for x in 0..<n.len - 2:
-    yield NimName n[x]
+  for node in n[0..<n.len - 2]:
+    yield NimName node

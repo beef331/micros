@@ -31,3 +31,12 @@ func `val=`*(p: var PragmaVal, val: NimNode) =
     NimNode(p)[^1] = val
   else:
     p = PragmaVal(nnkExprColonExpr.newTree(NimNode p, val))
+
+func hasVal*(p: PragmaVal): bool = NimNode(p).kind == nnkExprColonExpr
+
+func isNamed*(p: PragmaVal, name: string or NimName): bool =
+  if p.hasVal:
+    NimNode(p)[0].eqIdent name
+  else:
+    NimNode(p).eqIdent(name)
+
