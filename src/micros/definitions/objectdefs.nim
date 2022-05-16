@@ -81,7 +81,8 @@ func inheritObj*(obj: ObjectDef): Option[ObjectDef] =
     else:
       obj.NimNode[^1][1]
 
-  if inherit.kind == nnkOfInherit and not inherit[0].eqIdent("RootObj"):
+  if inherit.kind == nnkOfInherit and not inherit[0].eqIdent("RootObj") and inherit[0].kind != nnkIdent:
+    # can only get the parent if it's typed AST, so check if it's not `nnkIdent`
     result = some objectDef(inherit[0])
 
 func addGeneric*(obj: ObjectDef, newGenParam: IdentDef) =
