@@ -5,7 +5,7 @@ export options
 
 func isa*(n: NimNode, _: typedesc[ObjectDef]): bool =
   n.checkIt {nnkTypedef}
-  n[^1].checkIt {nnkRefTy, nnkObjectTy}
+  n[^1].checkIt {nnkRefTy, nnkObjectTy, nnkRecList}
   if n[^1].kind == nnkRefTy:
     n[^1][0].checkit {nnkObjectTy}
 
@@ -197,6 +197,7 @@ proc collectBranchFields(n: NimNode): seq[IdentDef] =
   ## should do it iteratively instead of storing in a seq
   case n.kind:
   of nnkIdentDefs:
+    echo n.treeRepr
     result.add identDef n
   of nnkRecCase:
     result.add identDef n[0]

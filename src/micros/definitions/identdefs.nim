@@ -5,7 +5,7 @@ func isa*(node: NimNode, _: typedesc[IdentDef]): bool =
     result = true
   else:
     node.checkit({nnkIdentDefs})
-    node.checkit(0..^3, {nnkIdent, nnkSym, nnkPragmaExpr})
+    node.checkit(0..^3, {nnkIdent, nnkSym, nnkPragmaExpr, nnkPostfix})
 
 func identDef*(n: NimNode): IdentDef =
   ## Ensures `n` isa `IdentDef` and then converts to it.
