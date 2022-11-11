@@ -47,3 +47,21 @@ template checkConv*(node: NimNode, typ: typedesc): auto =
   assert isa(node, typ)
   typ(node)
 
+proc desym*(n: NimNode) =
+  for i, x in n:
+    case x.kind
+    of nnkSym:
+      n[i] = ident($x)
+    of nnkOpenSymChoice, nnkClosedSymChoice:
+      n[i] = ident($x[0])
+    else:
+      n[i].desym()
+
+proc skipAddrs*(n: NimNode): NimNode =
+  case n.kind
+  of nnkHiddenAddr:
+    n[0]
+  of nnkHiddenStdConv:
+    n[1]
+  else:
+    n

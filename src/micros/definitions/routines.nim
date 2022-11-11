@@ -14,10 +14,10 @@ func isa*(n: NimNode, _: typedesc[RoutineSym]): bool =
   n.checkit {nnkSym, nnkOpenSymChoice, nnkClosedSymChoice}
   case n.kind
   of nnkSym:
-    if n.symKind notin {nskProc, nskTemplate, nskMacro}:
+    if n.symKind notin {nskProc, nskTemplate, nskMacro, nskFunc, nskIterator}:
       return false
   else:
-    if n[0].symKind notin {nskProc, nskTemplate, nskMacro}:
+    if n[0].symKind notin {nskProc, nskTemplate, nskMacro, nskFunc, nskIterator}:
       return false
 
 func routineSym*(n: NimNode): RoutineSym = n.checkConv RoutineSym
