@@ -1,6 +1,6 @@
 import micros/nimnodes
 import micros/flowcontrol/[casestmts, ofbranches, elifbranches, elsebranches]
-import std/[macros, sugar, genasts]
+import std/[macros, genasts]
 {.experimental: "caseStmtMacros".}
 
 macro `case`*(n: NimNode): untyped =

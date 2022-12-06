@@ -129,8 +129,7 @@ func deleteIdentDef*(r: RoutineNode, index: int) =
   r.NimNode.params.del(index)
 
 func addGeneric*(r: RoutineNode, generic: IdentDef) =
-  ## Adds generic parameter `generric` to `r`
-  assert NimNode(generic)[2].kind == nnkEmpty
+  ## Adds generic parameter `generic` to `r`
   if NimNode(r)[2].kind == nnkEmpty:
     NimNode(r)[2] = nnkGenericParams.newTree(NimNode generic)
   else:
@@ -153,17 +152,20 @@ func add*(r: RoutineNode, pragma: PragmaVal) =
 
 func insert*(r: RoutineNode, i: int, val: StmtSubTypes) =
   ## Inserts a value into the body of `r`
-  {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
+  if NimNode(r)[0].kind == nnkSym:
+    warning("Use on a typed Procedure may result in accessing the wrong Stmtlist", NimNode(r))
   NimNode(r)[^1].insert i, NimNode val
 
 func body*(r: RoutineNode): StmtList =
   ## Retrieves the body of `r`
-  {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
+  if NimNode(r)[0].kind == nnkSym:
+    warning("Use on a typed Procedure may result in accessing the wrong Stmtlist", NimNode(r))
   StmtList NimNode(r)[^1]
 
 func addToBody*(r: RoutineNode, toAdd: StmtSubTypes) =
   ## Adds a statement to the end of `r`'s `body`
-  {.warning: "Use on a typed Procedure may result in accessing the wrong Stmtlist".}
+  if NimNode(r)[0].kind == nnkSym:
+    warning("Use on a typed Procedure may result in accessing the wrong Stmtlist", NimNode(r))
   case NimNode(r)[^1].kind
   of nnkStmtList:
     r.body.NimNode.add toAdd

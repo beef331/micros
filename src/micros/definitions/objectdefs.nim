@@ -197,7 +197,6 @@ proc collectBranchFields(n: NimNode): seq[IdentDef] =
   ## should do it iteratively instead of storing in a seq
   case n.kind:
   of nnkIdentDefs:
-    echo n.treeRepr
     result.add identDef n
   of nnkRecCase:
     result.add identDef n[0]
