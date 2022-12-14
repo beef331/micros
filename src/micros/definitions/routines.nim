@@ -106,7 +106,9 @@ func setParamType*(r: RoutineNode, index: int, newType: NimNode, replaceOne = tr
               # We have more than a single definition handle the sides
               thisNode.del(iDefInd, thisNode.len - iDefInd - 2)
               NimNode(r)[3].insert(i + 1):
-                nnkIdentDefs.newTree(rightNames & thisNode[^2..^1])
+                var params = rightNames
+                params.add thisNode[^2..^1]
+                nnkIdentDefs.newTree(params)
               NimNode(r)[3].insert(i + 1, newDef)
               if thisNode.len <= 2:
                 NimNode(r)[3].del(i)
