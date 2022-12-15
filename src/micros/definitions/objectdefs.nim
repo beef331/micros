@@ -35,7 +35,7 @@ func objectDef*(name: string or NimName, isRef = false, parent: NimName or NimNo
       when name is string:
         ident name
       else:
-        name
+        NimNode(name)
     parent =
       when parent is NimName:
         NimNode parent

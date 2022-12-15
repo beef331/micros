@@ -14,6 +14,9 @@ func identDef*(n: NimNode): IdentDef =
   else:
     n.checkConv IdentDef
 
+func identDef*(name: NimName, typ: NimNode): IdentDef =
+  IdentDef newIdentDefs(NimNode(name), typ)
+
 func identDefTyp(name: string, typ: typedesc): IdentDef =
   ## Generates an `IdentDef` of `name: typ`
   IdentDef newIdentDefs(ident name, typ.getType)
