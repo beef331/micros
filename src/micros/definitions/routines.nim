@@ -25,7 +25,7 @@ func routineSym*(n: NimNode): RoutineSym = n.checkConv RoutineSym
 func isa*(n: NimNode, _: typedesc[RoutineNode]): bool =
   n.checkit RoutineNodes
   if n.kind != nnkLambda:
-   n.checkit 0, {nnkPragmaExpr, nnkPostfix, nnkIdent, nnkSym} # name
+   n.checkit 0, {nnkPragmaExpr, nnkPostfix, nnkIdent, nnkSym, nnkAccQuoted} # name
   n.checkit 1, {nnkEmpty, nnkStmtList} # constraint
   n.checkit 2, {nnkGenericParams, nnkEmpty} # generic params
   n.checkit 3, {nnkFormalParams} # formal Params
