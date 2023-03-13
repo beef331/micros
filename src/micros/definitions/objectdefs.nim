@@ -94,6 +94,8 @@ func addGeneric*(obj: ObjectDef, newGenParam: IdentDef) =
   else:
     NimNode(obj)[1] = nnkGenericParams.newTree(NimNode newGenParam)
 
+func genericParamList*(obj: ObjectDef): NimNode = NimNode(obj)[1]
+
 func add*(obj: ObjectDef, pragma: PragmaVal) =
   ## Adds the pragma `pragma` to `obj`.
   case obj.Nimnode[0].kind
