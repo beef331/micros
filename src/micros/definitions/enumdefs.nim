@@ -22,7 +22,7 @@ func enumdef*(n: NimNode): EnumDef =
       n
   n.checkConv EnumDef
 
-func enumDef*(name: string or NimName, fields: seq[NimNode]): EnumDef =
+func enumDef*(name: string or NimName, fields: seq[NimNode], public: bool): EnumDef =
   ## Generates a new `enumDef` with `name` and `fields`
   let name =
     when name is string:
@@ -30,7 +30,7 @@ func enumDef*(name: string or NimName, fields: seq[NimNode]): EnumDef =
     else:
       NimNode name
 
-  EnumDef newEnum(name, fields, false, false)
+  EnumDef newEnum(name, fields, public, false)
 
 iterator fields*(enmDf: EnumDef): EnumField =
   ## Iterates all the fields of `enmDf`
