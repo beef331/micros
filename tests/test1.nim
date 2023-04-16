@@ -85,6 +85,31 @@ suite "Flow Control Api":
     check makeCase(10) == 200
     check makeCase(3) == 60
 
+  test "Generate if statement":
+    macro makeif(cond: static int): untyped =
+      result = newStmtList()
+      result.add letStmt("a", cond)
+      let
+        stmt = ifStmt()
+      stmt.add:
+        elifBranch:
+          genAst: a mod 2 == 0
+        do:
+          newLit(10)
+      stmt.add:
+        elifBranch:
+          genAst: a mod 3 == 0
+        do:
+          newLit(30)
+      stmt.add:
+        elseBranch(newLit(30))
+
+      result.add stmt
+
+    check makeIf(15) == 30
+    check makeIf(10) == 10
+    check makeIf(3) == 30
+
   test "Generate For Loop":
     macro makeLoop(varName: untyped, countTo: static int) =
       result = newStmtList()

@@ -44,7 +44,8 @@ template checkIt*(node: NimNode, toCheck: NimNodeKinds) =
     return false
 
 template checkConv*(node: NimNode, typ: typedesc): auto =
-  assert isa(node, typ)
+  if not isa(node, typ):
+    error("Expected: " & $typeof(typ), node)
   typ(node)
 
 proc desym*(n: NimNode) =
