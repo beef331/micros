@@ -16,6 +16,10 @@ func condition*(elifBranch: ElifBranch): NimNode =
   ## Retrieves the condition from `elifBranch`
   elifBranch.NimNode[0]
 
+func `condition=`*(elifBranch: ElifBranch, newCond: NimNode) =
+  ## sets the condition on `elifBranch`
+  elifBranch.NimNode[0] = newCond
+
 func stmtList*(elifBranch: ElifBranch): NimNode =
   ## Retrieves the body of the `elifBranch`
   elifBranch.NimNode[1]
