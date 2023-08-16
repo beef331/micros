@@ -126,3 +126,34 @@ suite "Object Api":
     check objDef(MyType())
     check objDef(MyType)
 
+  test "Get ObjectDef (generic)":
+    macro objDef(t: typed): bool =
+      discard objectDef(t)
+      newLit true
+    type MyType[T] = object
+
+    var myVar = MyType[int]()
+    let myLet = MyType[int]()
+
+    check objDef(myVar)
+    check objDef(myLet)
+    check objDef(MyType[int]())
+    check objDef(MyType)
+    # check objDef(MyType[int]) # unfortunately, this doesn't work
+
+  test "Get ObjectDef (ref X)":
+    macro objDef(t: typed): bool =
+      discard objectDef(t)
+      newLit true
+    type
+      MyType = object
+      MyRef = ref MyType
+
+    var myVar = MyRef()
+    let myLet = MyRef()
+
+    check objDef(myVar)
+    check objDef(myLet)
+    check objDef(MyRef())
+    check objDef(MyRef)
+
