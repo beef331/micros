@@ -9,6 +9,16 @@ func isa*(n: NimNode, _: typedesc[ObjectDef]): bool =
   if n[^1].kind == nnkRefTy:
     n[^1][0].checkit {nnkObjectTy}
 
+func getSymImpl(n: NimNode): NimNode =
+  ## Fixes `getImpl` for generic and `ref X` objects
+  case n.kind
+  of nnkBracketExpr:
+    result = n[0].getImpl
+  else:
+    result = n.getImpl
+  if (result[^1].kind == nnkRefTy) and (result[^1][0].kind == nnkSym):
+    result[^1][0] = result[^1][0].getTypeImpl
+
 func objectDef*(n: NimNode): ObjectDef =
   ## Ensures `n` isa `ObjectDef` and then converts to it.
   let n =
@@ -17,11 +27,11 @@ func objectDef*(n: NimNode): ObjectDef =
       let typ = n.getType()
       case typ.typeKind
       of ntyTypeDesc:
-        n.getImpl
+        n.getSymImpl
       else:
-        n.getTypeInst.getImpl
+        n.getTypeInst.getSymImpl
     of nnkObjConstr:
-      n[0].getImpl
+      n[0].getSymImpl
     else:
       n
   n.checkConv ObjectDef
