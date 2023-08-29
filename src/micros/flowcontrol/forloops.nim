@@ -26,7 +26,7 @@ func delete*(forLoop: ForLoop, name: NimName) =
       forLoop.NimNode.del(i, 1)
       break
 
-func `body=`(forLoop: ForLoop, body: NimNode) =
+func `body=`*(forLoop: ForLoop, body: NimNode) =
   ## Sets the body of `forLoop` to `body`.
   forLoop.NimNode[^1] = body
 

@@ -99,7 +99,6 @@ func setParamType*(r: RoutineNode, index: int, newType: NimNode, replaceOne = tr
           if replaceOne:
             let
               thisNode = NimNode(r)[3][i]
-              typ = thisNode[^2]
               newDef = newIdentDefs(thisNode[idefInd].copyNimTree, newType)
               rightNames = thisNode[iDefInd + 1 .. ^3]
             if thisNode.len > 3:
