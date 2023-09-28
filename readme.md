@@ -4,6 +4,7 @@ Micros is a typesafe wrapping around the Nim macro API allowing more expressive 
 
 It presently does not wrap the entire Nim AST but does provide a decent amount of abstractions for what it does
 
+Docs can be found [here](https://www.jasonbeetham.com/micros)
 
 The following is a small taste of what it offers:
 
