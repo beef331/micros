@@ -1,4 +1,4 @@
-import micros/[utils, nimnodes]
+import utils, nimnodes
 
 func isa*(n: NimNode, _: typedesc[NimName]): bool =
   n.checkIt {nnkPragmaExpr, nnkSym, nnkIdent}

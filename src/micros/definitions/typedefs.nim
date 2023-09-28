@@ -1,4 +1,4 @@
-import micros/[utils, nimnodes]
+import ../[utils, nimnodes]
 
 func `name=`*(obj: TypeDefs, newName: NimName or string) =
   ## Sets the `name` of the `obj` typedef

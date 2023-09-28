@@ -1,4 +1,4 @@
-import micros/[nimnodes, utils]
+import ../[nimnodes, utils]
 import identdefs
 import std/[enumerate, options, genasts]
 export options

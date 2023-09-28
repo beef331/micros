@@ -1,4 +1,4 @@
-import micros/[nimnodes, utils, stmtlists]
+import ../[nimnodes, utils, stmtlists]
 import std/macros
 
 func isa*(n: NimNode, _: typedesc[OfBranch]): bool =

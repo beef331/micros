@@ -1,4 +1,4 @@
-import micros/[nimnodes, utils]
+import ../[nimnodes, utils]
 
 func isa*(node: NimNode, _: typedesc[IdentDef]): bool =
   if node.kind == nnkSym and node.symKind in {nskForVar, nskLet, nskVar, nskConst}:

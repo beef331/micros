@@ -2,7 +2,7 @@
 
 import micros/[utils, pragmas, stmtlists, nimnodes, enumfields, nimnames]
 import micros/definitions/[identdefs, objectdefs, routines, variabledefs, enumdefs, typedefs]
-import micros/flowcontrol/[casestmts, elifbranches, elsebranches, ofBranches, forloops, whileloops, whenstmts, ifstmts]
+import micros/flowcontrol/[casestmts, elifbranches, elsebranches, ofbranches, forloops, whileloops, whenstmts, ifstmts]
 
 export
   utils,
@@ -16,7 +16,7 @@ export
   casestmts,
   elifbranches,
   elsebranches,
-  ofBranches,
+  ofbranches,
   forloops,
   whileloops,
   enumfields,

@@ -1,4 +1,4 @@
-import micros/[utils, nimnodes, enumfields]
+import ../[utils, nimnodes, enumfields]
 import std/enumerate
 
 func isa*(n: NimNode, _: typedesc[EnumDef]): bool =

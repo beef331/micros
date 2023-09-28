@@ -1,4 +1,4 @@
-import micros/[utils, nimnodes]
+import ../[utils, nimnodes]
 import std/[macros, enumerate]
 
 const forParamKinds = {nnkIdent, nnkSym, nnkVarTuple}

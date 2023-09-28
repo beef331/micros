@@ -1,4 +1,4 @@
-import micros/[utils, nimnodes]
+import utils, nimnodes
 import std/options
 
 func isa*(n: NimNode, _: typedesc[EnumField]): bool =

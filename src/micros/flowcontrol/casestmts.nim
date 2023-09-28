@@ -1,4 +1,4 @@
-import micros/[utils, nimnodes]
+import ../[utils, nimnodes]
 
 func isa*(n: NimNode, _: typedesc[CaseStmt]): bool =
   n.checkIt {nnkCaseStmt}
