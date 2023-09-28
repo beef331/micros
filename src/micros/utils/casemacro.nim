@@ -1,5 +1,5 @@
 import ../nimnodes
-import ..flowcontrol/[casestmts, ofbranches, elifbranches, elsebranches]
+import ../flowcontrol/[casestmts, ofbranches, elifbranches, elsebranches]
 import std/[macros, genasts]
 {.experimental: "caseStmtMacros".}
 
