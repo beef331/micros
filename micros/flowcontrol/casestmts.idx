@@ -1,0 +1,11 @@
+nimTitle	casestmts	micros/flowcontrol/casestmts.html	module src/micros/flowcontrol/casestmts		0
+nim	isa	micros/flowcontrol/casestmts.html#isa,NimNode,typedesc[CaseStmt]	proc isa(n: NimNode; __1509949445: typedesc[CaseStmt]): bool		3
+nim	caseStmt	micros/flowcontrol/casestmts.html#caseStmt,NimNode	proc caseStmt(n: NimNode): CaseStmt		7
+nim	caseStmt	micros/flowcontrol/casestmts.html#caseStmt,NimName	proc caseStmt(delim: NimName): CaseStmt		11
+nim	discriminator	micros/flowcontrol/casestmts.html#discriminator,CaseStmt	proc discriminator(casStmt: CaseStmt): NimNode		15
+nim	add	micros/flowcontrol/casestmts.html#add,CaseStmt,OfBranch	proc add(casStmt: CaseStmt; ofBranch: OfBranch)		19
+nim	add	micros/flowcontrol/casestmts.html#add,CaseStmt,ElIfBranch	proc add(casStmt: CaseStmt; elifBranch: ElIfBranch)		30
+nim	add	micros/flowcontrol/casestmts.html#add,CaseStmt,ElseBranch	proc add(casStmt: CaseStmt; elseBranch: ElseBranch)		41
+nim	branches	micros/flowcontrol/casestmts.html#branches.i,CaseStmt	iterator branches(caseStmt: CaseStmt): NimNode		48
+nimgrp	add	micros/flowcontrol/casestmts.html#add-procs-all	proc		19
+nimgrp	casestmt	micros/flowcontrol/casestmts.html#caseStmt-procs-all	proc		7

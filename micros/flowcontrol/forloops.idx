@@ -1,0 +1,8 @@
+nimTitle	forloops	micros/flowcontrol/forloops.html	module src/micros/flowcontrol/forloops		0
+nim	isa	micros/flowcontrol/forloops.html#isa,NimNode,typedesc[ForLoop]	proc isa(n: NimNode; __1577058312: typedesc[ForLoop]): bool		6
+nim	forloop	micros/flowcontrol/forloops.html#forloop,NimNode	proc forloop(n: NimNode): ForLoop		10
+nim	forLoop	micros/flowcontrol/forloops.html#forLoop,NimNode,NimNode,NimNode	proc forLoop(params, iter, body: NimNode): ForLoop		14
+nim	add	micros/flowcontrol/forloops.html#add,ForLoop,NimName	proc add(forLoop: ForLoop; name: NimName)		17
+nim	delete	micros/flowcontrol/forloops.html#delete,ForLoop,NimName	proc delete(forLoop: ForLoop; name: NimName)		22
+nim	body=	micros/flowcontrol/forloops.html#body=,ForLoop,NimNode	proc body=(forLoop: ForLoop; body: NimNode)		29
+nim	variables	micros/flowcontrol/forloops.html#variables.i,ForLoop	iterator variables(forLoop: ForLoop): NimName		33

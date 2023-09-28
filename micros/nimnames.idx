@@ -1,0 +1,9 @@
+nimTitle	nimnames	micros/nimnames.html	module src/micros/nimnames		0
+nim	isa	micros/nimnames.html#isa,NimNode,typedesc[NimName]	proc isa(n: NimNode; __1358954501: typedesc[NimName]): bool		3
+nim	nimName	micros/nimnames.html#nimName,NimNode	proc nimName(n: NimNode): NimName		6
+nim	genNimName	micros/nimnames.html#genNimName,string,NimSymKind	proc genNimName(s: string; symKind: NimSymKind): NimName		10
+nim	nimName	micros/nimnames.html#nimName,string	proc nimName(s: string): NimName		14
+nim	add	micros/nimnames.html#add,NimName,PragmaVal	proc add(n: NimName; p: PragmaVal)		18
+nim	copyWithPragma	micros/nimnames.html#copyWithPragma,NimName,PragmaVal	proc copyWithPragma(name: NimName; prag: PragmaVal): NimName		23
+nim	pragmas	micros/nimnames.html#pragmas.i,NimName	iterator pragmas(name: NimName): PragmaVal		34
+nimgrp	nimname	micros/nimnames.html#nimName-procs-all	proc		6

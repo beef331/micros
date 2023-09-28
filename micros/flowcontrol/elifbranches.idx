@@ -1,0 +1,8 @@
+nimTitle	elifbranches	micros/flowcontrol/elifbranches.html	module src/micros/flowcontrol/elifbranches		0
+nim	isa	micros/flowcontrol/elifbranches.html#isa,NimNode,typedesc[ElIfBranch]	proc isa(n: NimNode; __1526726662: typedesc[ElIfBranch]): bool		4
+nim	elifBranch	micros/flowcontrol/elifbranches.html#elifBranch,NimNode	proc elifBranch(n: NimNode): ElIfBranch		7
+nim	elifBranch	micros/flowcontrol/elifbranches.html#elifBranch,NimNode,NimNode	proc elifBranch(cond, body: NimNode): ElIfBranch		11
+nim	condition	micros/flowcontrol/elifbranches.html#condition,ElIfBranch	proc condition(elifBranch: ElIfBranch): NimNode		15
+nim	condition=	micros/flowcontrol/elifbranches.html#condition=,ElIfBranch,NimNode	proc condition=(elifBranch: ElIfBranch; newCond: NimNode)		19
+nim	stmtList	micros/flowcontrol/elifbranches.html#stmtList,ElIfBranch	proc stmtList(elifBranch: ElIfBranch): NimNode		23
+nimgrp	elifbranch	micros/flowcontrol/elifbranches.html#elifBranch-procs-all	proc		7

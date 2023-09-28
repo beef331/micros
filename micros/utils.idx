@@ -1,0 +1,14 @@
+nimTitle	utils	micros/utils.html	module src/micros/utils		0
+nim	`[]`	micros/utils.html#[].i,NimNodes,Slice[int]	iterator `[]`(n: NimNodes; slice: Slice[int]): NimNode		4
+nim	`[]`	micros/utils.html#[].i,NimNodes,HSlice[int,BackwardsIndex]	iterator `[]`(n: NimNodes; slice: HSlice[int, BackwardsIndex]): NimNode		11
+nim	`[]`	micros/utils.html#[].i,NimNodes,Slice[BackwardsIndex]	iterator `[]`(n: NimNodes; slice: Slice[BackwardsIndex]): NimNode		18
+nim	castTo	micros/utils.html#castTo,NimNodes,typedesc	proc castTo(node: NimNodes; typ: typedesc): NimNode		25
+nim	makeTypeDesc	micros/utils.html#makeTypeDesc,NimNode	proc makeTypeDesc(n: NimNode): NimNode		28
+nim	checkIt	micros/utils.html#checkIt.t,NimNode,HSlice,NimNodeKinds	template checkIt(node: NimNode; op: HSlice; toCheck: NimNodeKinds)		30
+nim	checkIt	micros/utils.html#checkIt.t,NimNode,,NimNodeKinds	template checkIt(node: NimNode; op: int or BackwardsIndex; toCheck: NimNodeKinds)		36
+nim	checkIt	micros/utils.html#checkIt.t,NimNode,NimNodeKinds	template checkIt(node: NimNode; toCheck: NimNodeKinds)		41
+nim	checkConv	micros/utils.html#checkConv.t,NimNode,typedesc	template checkConv(node: NimNode; typ: typedesc): auto		46
+nim	desym	micros/utils.html#desym,NimNode	proc desym(n: NimNode)		51
+nim	skipAddrs	micros/utils.html#skipAddrs,NimNode	proc skipAddrs(n: NimNode): NimNode		61
+nimgrp	[]	micros/utils.html#[]-iterators-all	iterator		4
+nimgrp	checkit	micros/utils.html#checkIt-templates-all	template		30

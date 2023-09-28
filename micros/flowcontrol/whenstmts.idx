@@ -1,0 +1,11 @@
+nimTitle	whenstmts	micros/flowcontrol/whenstmts.html	module src/micros/flowcontrol/whenstmts		0
+nim	isa	micros/flowcontrol/whenstmts.html#isa,NimNode,typedesc[WhenStmt]	proc isa(n: NimNode; __1610612742: typedesc[WhenStmt]): bool		4
+nim	whenStmt	micros/flowcontrol/whenstmts.html#whenStmt,NimNode	proc whenStmt(n: NimNode): WhenStmt		9
+nim	whenStmt	micros/flowcontrol/whenstmts.html#whenStmt	proc whenStmt(): WhenStmt		13
+nim	add	micros/flowcontrol/whenstmts.html#add,WhenStmt,ElIfBranch	proc add(wStmt: WhenStmt; elifBranch: ElIfBranch)		15
+nim	add	micros/flowcontrol/whenstmts.html#add,WhenStmt,ElseBranch	proc add(wStmt: WhenStmt; elseBranch: ElseBranch)		23
+nim	elseBranch	micros/flowcontrol/whenstmts.html#elseBranch,WhenStmt	proc elseBranch(wStmt: WhenStmt): ElseBranch		28
+nim	elifBranches	micros/flowcontrol/whenstmts.html#elifBranches.i,WhenStmt	iterator elifBranches(wStmt: WhenStmt): ElIfBranch		35
+nim	branches	micros/flowcontrol/whenstmts.html#branches.i,WhenStmt	iterator branches(wStmt: WhenStmt): NimNode		41
+nimgrp	add	micros/flowcontrol/whenstmts.html#add-procs-all	proc		15
+nimgrp	whenstmt	micros/flowcontrol/whenstmts.html#whenStmt-procs-all	proc		9

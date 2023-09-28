@@ -1,0 +1,10 @@
+nimTitle	variabledefs	micros/definitions/variabledefs.html	module src/micros/definitions/variabledefs		0
+nim	isa	micros/definitions/variabledefs.html#isa,NimNode,typedesc[VarDefs]	proc isa(n: NimNode; T: typedesc[VarDefs]): bool		5
+nim	varDef	micros/definitions/variabledefs.html#varDef,NimNode	proc varDef(n: NimNode): VarDef		19
+nim	letDef	micros/definitions/variabledefs.html#letDef,NimNode	proc letDef(n: NimNode): LetDef		23
+nim	constDef	micros/definitions/variabledefs.html#constDef,NimNode	proc constDef(n: NimNode): ConstDef		27
+nim	varStmt	micros/definitions/variabledefs.html#varStmt,,auto	proc varStmt(name: string or NimName; val: auto): VarDef		32
+nim	letStmt	micros/definitions/variabledefs.html#letStmt,,auto	proc letStmt(name: string or NimName; val: auto): LetDef		45
+nim	identdefs	micros/definitions/variabledefs.html#identdefs.i	iterator identdefs(def: LetDef or VarDef): IdentDef		58
+nim	names	micros/definitions/variabledefs.html#names.i	iterator names(def: LetDef or VarDef): NimName		63
+nim	add	micros/definitions/variabledefs.html#add,VarDefs,PragmaVal	proc add(def: VarDefs; prag: PragmaVal)		69

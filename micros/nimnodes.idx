@@ -1,0 +1,36 @@
+nimTitle	nimnodes	micros/nimnodes.html	module src/micros/nimnodes		0
+nim	RoutineNode	micros/nimnodes.html#RoutineNode	type RoutineNode		3
+nim	RoutineSym	micros/nimnodes.html#RoutineSym	type RoutineSym		4
+nim	IdentDef	micros/nimnodes.html#IdentDef	type IdentDef		6
+nim	VarDef	micros/nimnodes.html#VarDef	type VarDef		7
+nim	LetDef	micros/nimnodes.html#LetDef	type LetDef		8
+nim	ConstDef	micros/nimnodes.html#ConstDef	type ConstDef		9
+nim	ObjectDef	micros/nimnodes.html#ObjectDef	type ObjectDef		10
+nim	EnumDef	micros/nimnodes.html#EnumDef	type EnumDef		11
+nim	PragmaVal	micros/nimnodes.html#PragmaVal	type PragmaVal		13
+nim	CaseStmt	micros/nimnodes.html#CaseStmt	type CaseStmt		15
+nim	IfStmt	micros/nimnodes.html#IfStmt	type IfStmt		16
+nim	WhenStmt	micros/nimnodes.html#WhenStmt	type WhenStmt		17
+nim	ElIfBranch	micros/nimnodes.html#ElIfBranch	type ElIfBranch		18
+nim	ElseBranch	micros/nimnodes.html#ElseBranch	type ElseBranch		19
+nim	OfBranch	micros/nimnodes.html#OfBranch	type OfBranch		20
+nim	WhileLoop	micros/nimnodes.html#WhileLoop	type WhileLoop		22
+nim	ForLoop	micros/nimnodes.html#ForLoop	type ForLoop		23
+nim	EnumField	micros/nimnodes.html#EnumField	type EnumField		25
+nim	VarDefs	micros/nimnodes.html#VarDefs	type VarDefs		27
+nim	NimName	micros/nimnodes.html#NimName	type NimName		29
+nim	StmtList	micros/nimnodes.html#StmtList	type StmtList		31
+nim	StmtSubTypes	micros/nimnodes.html#StmtSubTypes	type StmtSubTypes		32
+nim	TypeDefs	micros/nimnodes.html#TypeDefs	type TypeDefs		33
+nim	DistinctNimNode	micros/nimnodes.html#DistinctNimNode	type DistinctNimNode		34
+nim	NimNodes	micros/nimnodes.html#NimNodes	type NimNodes		36
+nim	VariableSyms	micros/nimnodes.html#VariableSyms	const VariableSyms		39
+nim	exported	micros/nimnodes.html#exported	proc exported(name: string or NimNode): NimName		41
+nim	toName	micros/nimnodes.html#toName	proc toName(n: NimName or string): NimName		50
+nim	repr	micros/nimnodes.html#repr,DistinctNimNode	proc repr(n: DistinctNimNode): string		58
+nim	`$`	micros/nimnodes.html#$,NimName	proc `$`(n: NimName): string		60
+nim	`==`	micros/nimnodes.html#==,NimName,string	proc `==`(n: NimName; name: string): bool		62
+nim	`==`	micros/nimnodes.html#==,NimName,NimName	proc `==`(n, name: NimName): bool		63
+nim	add	micros/nimnodes.html#add,NimNode,DistinctNimNode	proc add(n: NimNode; d: DistinctNimNode)		65
+nim	copy	micros/nimnodes.html#copy,DistinctNimNode	proc copy(n: DistinctNimNode): typeof(n)		67
+nimgrp	==	micros/nimnodes.html#==-procs-all	proc		62

@@ -1,0 +1,18 @@
+nimTitle	identdefs	micros/definitions/identdefs.html	module src/micros/definitions/identdefs		0
+nim	isa	micros/definitions/identdefs.html#isa,NimNode,typedesc[IdentDef]	proc isa(node: NimNode; __1375731717: typedesc[IdentDef]): bool		3
+nim	identDef	micros/definitions/identdefs.html#identDef,NimNode	proc identDef(n: NimNode): IdentDef		10
+nim	identDef	micros/definitions/identdefs.html#identDef,NimName,NimNode	proc identDef(name: NimName; typ: NimNode): IdentDef		17
+nim	isSingle	micros/definitions/identdefs.html#isSingle,IdentDef	proc isSingle(iDef: IdentDef): bool		28
+nim	identDef	micros/definitions/identdefs.html#identDef.t,string,	template identDef(name: string; typ: typedesc and not NimNode): untyped		33
+nim	identDef	micros/definitions/identdefs.html#identDef.t,string,_2	template identDef(name: string; val: not typedesc and not NimNode): untyped		35
+nim	identDefTyp	micros/definitions/identdefs.html#identDefTyp,string,NimNode	proc identDefTyp(name: string; typ: NimNode): IdentDef		37
+nim	identDefVal	micros/definitions/identdefs.html#identDefVal,string,NimNode	proc identDefVal(name: string; val: NimNode): IdentDef		41
+nim	typ	micros/definitions/identdefs.html#typ,IdentDef	proc typ(n: IdentDef): NimNode		45
+nim	typ=	micros/definitions/identdefs.html#typ=,IdentDef,NimNode	proc typ=(n: IdentDef; newTyp: NimNode)		49
+nim	val	micros/definitions/identdefs.html#val,IdentDef	proc val(n: IdentDef): NimNode		53
+nim	val=	micros/definitions/identdefs.html#val=,IdentDef,NimNode	proc val=(n: IdentDef; newVal: NimNode)		57
+nim	name	micros/definitions/identdefs.html#name,IdentDef,int	proc name(n: IdentDef; ind = 0): NimName		61
+nim	addVar	micros/definitions/identdefs.html#addVar,IdentDef,	proc addVar(n: IdentDef; name: NimNode or string)		65
+nim	names	micros/definitions/identdefs.html#names.i,IdentDef	iterator names(idef: IdentDef): NimName		72
+nimgrp	identdef	micros/definitions/identdefs.html#identDef-procs-all	proc		10
+nimgrp	identdef	micros/definitions/identdefs.html#identDef-templates-all	template		33

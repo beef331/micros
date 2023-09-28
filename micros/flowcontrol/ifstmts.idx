@@ -1,0 +1,11 @@
+nimTitle	ifstmts	micros/flowcontrol/ifstmts.html	module src/micros/flowcontrol/ifstmts		0
+nim	isa	micros/flowcontrol/ifstmts.html#isa,NimNode,typedesc[IfStmt]	proc isa(n: NimNode; __1627389958: typedesc[IfStmt]): bool		4
+nim	ifStmt	micros/flowcontrol/ifstmts.html#ifStmt,NimNode	proc ifStmt(n: NimNode): IfStmt		9
+nim	ifStmt	micros/flowcontrol/ifstmts.html#ifStmt	proc ifStmt(): IfStmt		13
+nim	add	micros/flowcontrol/ifstmts.html#add,IfStmt,ElIfBranch	proc add(ifStmt: IfStmt; elifBranch: ElIfBranch)		15
+nim	add	micros/flowcontrol/ifstmts.html#add,IfStmt,ElseBranch	proc add(ifStmt: IfStmt; elseBranch: ElseBranch)		23
+nim	elseBranch	micros/flowcontrol/ifstmts.html#elseBranch,IfStmt	proc elseBranch(ifStmt: IfStmt): ElseBranch		28
+nim	elifBranches	micros/flowcontrol/ifstmts.html#elifBranches.i,IfStmt	iterator elifBranches(ifStmt: IfStmt): ElIfBranch		35
+nim	branches	micros/flowcontrol/ifstmts.html#branches.i,IfStmt	iterator branches(ifStmt: IfStmt): NimNode		41
+nimgrp	ifstmt	micros/flowcontrol/ifstmts.html#ifStmt-procs-all	proc		9
+nimgrp	add	micros/flowcontrol/ifstmts.html#add-procs-all	proc		15

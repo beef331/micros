@@ -1,0 +1,7 @@
+nimTitle	enumfields	micros/enumfields.html	module src/micros/enumfields		0
+nim	isa	micros/enumfields.html#isa,NimNode,typedesc[EnumField]	proc isa(n: NimNode; __1325400070: typedesc[EnumField]): bool		4
+nim	enumField	micros/enumfields.html#enumField,NimNode	proc enumField(n: NimNode): EnumField		7
+nim	enumField	micros/enumfields.html#enumField,string,Option[SomeOrdinal]	proc enumField(s: string; val: Option[SomeOrdinal]): EnumField		11
+nim	val	micros/enumfields.html#val,EnumField	proc val(ef: EnumField): NimNode		19
+nim	name	micros/enumfields.html#name,EnumField	proc name(ef: EnumField): NimName		25
+nimgrp	enumfield	micros/enumfields.html#enumField-procs-all	proc		7

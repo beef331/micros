@@ -1,0 +1,18 @@
+nimTitle	objectdefs	micros/definitions/objectdefs.html	module src/micros/definitions/objectdefs		0
+nim	isa	micros/definitions/objectdefs.html#isa,NimNode,typedesc[ObjectDef]	proc isa(n: NimNode; __1392508937: typedesc[ObjectDef]): bool		6
+nim	objectDef	micros/definitions/objectdefs.html#objectDef,NimNode	proc objectDef(n: NimNode): ObjectDef		22
+nim	objectDef	micros/definitions/objectdefs.html#objectDef	proc objectDef(name: string or NimName; isRef = false;\n          parent: NimName or NimNode = newEmptyNode()): ObjectDef		39
+nim	recList	micros/definitions/objectdefs.html#recList,ObjectDef	proc recList(obj: ObjectDef): auto		71
+nim	recList=	micros/definitions/objectdefs.html#recList=,ObjectDef,NimNode	proc recList=(obj: ObjectDef; val: NimNode)		78
+nim	inheritObj	micros/definitions/objectdefs.html#inheritObj,ObjectDef	proc inheritObj(obj: ObjectDef): Option[ObjectDef]		85
+nim	addGeneric	micros/definitions/objectdefs.html#addGeneric,ObjectDef,IdentDef	proc addGeneric(obj: ObjectDef; newGenParam: IdentDef)		98
+nim	genericParamList	micros/definitions/objectdefs.html#genericParamList,ObjectDef	proc genericParamList(obj: ObjectDef): NimNode		107
+nim	add	micros/definitions/objectdefs.html#add,ObjectDef,PragmaVal	proc add(obj: ObjectDef; pragma: PragmaVal)		109
+nim	fieldConditions	micros/definitions/objectdefs.html#fieldConditions,NimNode,	proc fieldConditions(obj: NimNode; field: NimName or string): NimNode		174
+nim	addField	micros/definitions/objectdefs.html#addField,ObjectDef,IdentDef	proc addField(obj: ObjectDef; field: IdentDef)		180
+nim	delField	micros/definitions/objectdefs.html#delField,ObjectDef,string	proc delField(obj: ObjectDef; fieldName: string)		192
+nim	inheritObjs	micros/definitions/objectdefs.html#inheritObjs.i,ObjectDef	iterator inheritObjs(obj: ObjectDef): ObjectDef		222
+nim	fields	micros/definitions/objectdefs.html#fields.i,ObjectDef	iterator fields(obj: ObjectDef): IdentDef		229
+nim	pragmas	micros/definitions/objectdefs.html#pragmas.i,ObjectDef	iterator pragmas(obj: ObjectDef): PragmaVal		243
+nim	genericParams	micros/definitions/objectdefs.html#genericParams.i,ObjectDef	iterator genericParams(obj: ObjectDef): IdentDef		251
+nimgrp	objectdef	micros/definitions/objectdefs.html#objectDef-procs-all	proc		22

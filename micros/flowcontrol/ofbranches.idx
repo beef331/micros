@@ -1,0 +1,9 @@
+nimTitle	ofbranches	micros/flowcontrol/ofbranches.html	module src/micros/flowcontrol/ofbranches		0
+nim	isa	micros/flowcontrol/ofbranches.html#isa,NimNode,typedesc[OfBranch]	proc isa(n: NimNode; __1560281095: typedesc[OfBranch]): bool		4
+nim	ofBranch	micros/flowcontrol/ofbranches.html#ofBranch,NimNode	proc ofBranch(n: NimNode): OfBranch		7
+nim	ofBranch	micros/flowcontrol/ofbranches.html#ofBranch,,NimNode	proc ofBranch(cond: not NimNode; body: NimNode): OfBranch		11
+nim	ofBranch	micros/flowcontrol/ofbranches.html#ofBranch,NimNode,NimNode	proc ofBranch(cond: NimNode; body: NimNode): OfBranch		15
+nim	stmtList	micros/flowcontrol/ofbranches.html#stmtList,OfBranch	proc stmtList(ofBranch: OfBranch): StmtList		19
+nim	addCondition	micros/flowcontrol/ofbranches.html#addCondition,OfBranch,NimNode	proc addCondition(ofBranch: OfBranch; cond: NimNode)		23
+nim	conditions	micros/flowcontrol/ofbranches.html#conditions.i,OfBranch	iterator conditions(ofBranch: OfBranch): NimNode		27
+nimgrp	ofbranch	micros/flowcontrol/ofbranches.html#ofBranch-procs-all	proc		7

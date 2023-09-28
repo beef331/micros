@@ -1,0 +1,4 @@
+nimTitle	elsebranches	micros/flowcontrol/elsebranches.html	module src/micros/flowcontrol/elsebranches		0
+nim	isa	micros/flowcontrol/elsebranches.html#isa,NimNode,typedesc[ElseBranch]	proc isa(n: NimNode; __1543503878: typedesc[ElseBranch]): bool		3
+nim	elseBranch	micros/flowcontrol/elsebranches.html#elseBranch,NimNode	proc elseBranch(n: NimNode): ElseBranch		8
+nim	stmtList	micros/flowcontrol/elsebranches.html#stmtList,ElseBranch	proc stmtList(elseBranch: ElseBranch): NimNode		15

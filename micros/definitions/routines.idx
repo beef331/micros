@@ -1,0 +1,31 @@
+nimTitle	routines	micros/definitions/routines.html	module src/micros/definitions/routines		0
+nim	rtProc	micros/definitions/routines.html#rtProc	RoutineType.rtProc		6
+nim	rtFunc	micros/definitions/routines.html#rtFunc	RoutineType.rtFunc		6
+nim	rtIter	micros/definitions/routines.html#rtIter	RoutineType.rtIter		6
+nim	rtMacro	micros/definitions/routines.html#rtMacro	RoutineType.rtMacro		6
+nim	rtTemplate	micros/definitions/routines.html#rtTemplate	RoutineType.rtTemplate		6
+nim	RoutineType	micros/definitions/routines.html#RoutineType	enum RoutineType		6
+nim	isa	micros/definitions/routines.html#isa,NimNode,typedesc[RoutineSym]	proc isa(n: NimNode; __1442840592: typedesc[RoutineSym]): bool		13
+nim	routineSym	micros/definitions/routines.html#routineSym,NimNode	proc routineSym(n: NimNode): RoutineSym		23
+nim	isa	micros/definitions/routines.html#isa,NimNode,typedesc[RoutineNode]	proc isa(n: NimNode; __1442840648: typedesc[RoutineNode]): bool		25
+nim	routineNode	micros/definitions/routines.html#routineNode,NimNode	proc routineNode(n: NimNode): RoutineNode		35
+nim	routineNode	micros/definitions/routines.html#routineNode	proc routineNode(name: NimName or string; typ = rtProc): RoutineNode		39
+nim	strName	micros/definitions/routines.html#strName,RoutineNode	proc strName(r: RoutineNode): string		61
+nim	returnType	micros/definitions/routines.html#returnType,RoutineNode	proc returnType(r: RoutineNode): NimNode		72
+nim	returnType=	micros/definitions/routines.html#returnType=,RoutineNode,NimNode	proc returnType=(r: RoutineNode; newType: NimNode)		76
+nim	param	micros/definitions/routines.html#param,RoutineNode,int	proc param(r: RoutineNode; toGetInd: int): IdentDef		81
+nim	setParamType	micros/definitions/routines.html#setParamType,RoutineNode,int,NimNode	proc setParamType(r: RoutineNode; index: int; newType: NimNode; replaceOne = true)		91
+nim	insertIdentDef	micros/definitions/routines.html#insertIdentDef,RoutineNode,int,IdentDef	proc insertIdentDef(r: RoutineNode; index: int; param: IdentDef)		122
+nim	deleteIdentDef	micros/definitions/routines.html#deleteIdentDef,RoutineNode,int	proc deleteIdentDef(r: RoutineNode; index: int)		127
+nim	addGeneric	micros/definitions/routines.html#addGeneric,RoutineNode,IdentDef	proc addGeneric(r: RoutineNode; generic: IdentDef)		132
+nim	addParam	micros/definitions/routines.html#addParam,RoutineNode,IdentDef	proc addParam(r: RoutineNode; param: IdentDef)		139
+nim	add	micros/definitions/routines.html#add,RoutineNode,PragmaVal	proc add(r: RoutineNode; pragma: PragmaVal)		147
+nim	insert	micros/definitions/routines.html#insert,RoutineNode,int,StmtSubTypes	proc insert(r: RoutineNode; i: int; val: StmtSubTypes)		154
+nim	body	micros/definitions/routines.html#body,RoutineNode	proc body(r: RoutineNode): StmtList		160
+nim	addToBody	micros/definitions/routines.html#addToBody,RoutineNode,StmtSubTypes	proc addToBody(r: RoutineNode; toAdd: StmtSubTypes)		166
+nim	params	micros/definitions/routines.html#params.i,RoutineNode	iterator params(r: RoutineNode): IdentDef		176
+nim	genericParams	micros/definitions/routines.html#genericParams.i,RoutineNode	iterator genericParams(r: RoutineNode): IdentDef		182
+nim	pragmas	micros/definitions/routines.html#pragmas.i,RoutineNode	iterator pragmas(r: RoutineNode): PragmaVal		187
+nim	routines	micros/definitions/routines.html#routines.i,RoutineSym	iterator routines(routineSym: RoutineSym): RoutineNode		192
+nimgrp	isa	micros/definitions/routines.html#isa-procs-all	proc		13
+nimgrp	routinenode	micros/definitions/routines.html#routineNode-procs-all	proc		35

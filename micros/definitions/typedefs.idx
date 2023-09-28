@@ -1,0 +1,3 @@
+nimTitle	typedefs	micros/definitions/typedefs.html	module src/micros/definitions/typedefs		0
+nim	name=	micros/definitions/typedefs.html#name=,TypeDefs,	proc name=(obj: TypeDefs; newName: NimName or string)		3
+nim	name	micros/definitions/typedefs.html#name,TypeDefs	proc name(obj: TypeDefs): NimName		24
