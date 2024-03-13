@@ -8,7 +8,7 @@ macro returnType*(p: proc): untyped =
 
 macro paramTypeAt*(p: proc, ind: static int): untyped =
   ## Gets a parameter at a specific index, returns void if not found
-  let params = p.getTypeInst[0]
+  let params = p.getTypeImpl[0]
   if ind in 0..<params.len:
     params[ind + 1][^2]
   else:
@@ -17,7 +17,7 @@ macro paramTypeAt*(p: proc, ind: static int): untyped =
 macro paramsAsTuple*(p: proc): untyped =
   ## Creates a tuple typedesc for the parameters of a given procedure
   result = nnkTupleConstr.newTree()
-  for x in p.getTypeInst()[0][1..^1]:
+  for x in p.getTypeImpl()[0][1..^1]:
     result.add x[^2]
 
 macro unpackTuple*(p: proc, t: tuple): untyped =
