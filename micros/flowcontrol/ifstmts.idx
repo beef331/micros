@@ -1,5 +1,5 @@
 nimTitle	ifstmts	micros/flowcontrol/ifstmts.html	module src/micros/flowcontrol/ifstmts		0
-nim	isa	micros/flowcontrol/ifstmts.html#isa,NimNode,typedesc[IfStmt]	proc isa(n: NimNode; __1627389958: typedesc[IfStmt]): bool		4
+nim	isa	micros/flowcontrol/ifstmts.html#isa,NimNode,typedesc[IfStmt]	proc isa(n: NimNode; _: typedesc[IfStmt]): bool		4
 nim	ifStmt	micros/flowcontrol/ifstmts.html#ifStmt,NimNode	proc ifStmt(n: NimNode): IfStmt		9
 nim	ifStmt	micros/flowcontrol/ifstmts.html#ifStmt	proc ifStmt(): IfStmt		13
 nim	add	micros/flowcontrol/ifstmts.html#add,IfStmt,ElIfBranch	proc add(ifStmt: IfStmt; elifBranch: ElIfBranch)		15

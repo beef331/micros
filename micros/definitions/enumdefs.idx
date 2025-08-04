@@ -1,5 +1,5 @@
 nimTitle	enumdefs	micros/definitions/enumdefs.html	module src/micros/definitions/enumdefs		0
-nim	isa	micros/definitions/enumdefs.html#isa,NimNode,typedesc[EnumDef]	proc isa(n: NimNode; __1476395015: typedesc[EnumDef]): bool		4
+nim	isa	micros/definitions/enumdefs.html#isa,NimNode,typedesc[EnumDef]	proc isa(n: NimNode; _: typedesc[EnumDef]): bool		4
 nim	enumdef	micros/definitions/enumdefs.html#enumdef,NimNode	proc enumdef(n: NimNode): EnumDef		8
 nim	enumDef	micros/definitions/enumdefs.html#enumDef,,seq[NimNode],bool	proc enumDef(name: string or NimName; fields: seq[NimNode]; public: bool): EnumDef		25
 nim	fields	micros/definitions/enumdefs.html#fields.i,EnumDef	iterator fields(enmDf: EnumDef): EnumField		35

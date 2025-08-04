@@ -1,6 +1,6 @@
 nimTitle	pragmas	micros/pragmas.html	module src/micros/pragmas		0
 nim	pragmaVal	micros/pragmas.html#pragmaVal,string,auto	proc pragmaVal(name: string; val: auto): PragmaVal		3
-nim	isa	micros/pragmas.html#isa,NimNode,typedesc[PragmaVal]	proc isa(n: NimNode; __1291845642: typedesc[PragmaVal]): bool		7
+nim	isa	micros/pragmas.html#isa,NimNode,typedesc[PragmaVal]	proc isa(n: NimNode; _: typedesc[PragmaVal]): bool		7
 nim	pragmaVal	micros/pragmas.html#pragmaVal,NimNode	proc pragmaVal(n: NimNode): PragmaVal		9
 nim	pragma	micros/pragmas.html#pragma,string	proc pragma(name: string): PragmaVal		13
 nim	pragma	micros/pragmas.html#pragma,NimName	proc pragma(name: NimName): PragmaVal		17
@@ -8,5 +8,5 @@ nim	val	micros/pragmas.html#val,PragmaVal	proc val(p: PragmaVal): NimNode		21
 nim	val=	micros/pragmas.html#val=,PragmaVal,NimNode	proc val=(p: var PragmaVal; val: NimNode)		28
 nim	hasVal	micros/pragmas.html#hasVal,PragmaVal	proc hasVal(p: PragmaVal): bool		35
 nim	isNamed	micros/pragmas.html#isNamed,PragmaVal,	proc isNamed(p: PragmaVal; name: string or NimName): bool		37
-nimgrp	pragmaval	micros/pragmas.html#pragmaVal-procs-all	proc		3
 nimgrp	pragma	micros/pragmas.html#pragma-procs-all	proc		13
+nimgrp	pragmaval	micros/pragmas.html#pragmaVal-procs-all	proc		3

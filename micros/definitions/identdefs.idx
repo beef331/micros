@@ -1,5 +1,5 @@
 nimTitle	identdefs	micros/definitions/identdefs.html	module src/micros/definitions/identdefs		0
-nim	isa	micros/definitions/identdefs.html#isa,NimNode,typedesc[IdentDef]	proc isa(node: NimNode; __1375731717: typedesc[IdentDef]): bool		3
+nim	isa	micros/definitions/identdefs.html#isa,NimNode,typedesc[IdentDef]	proc isa(node: NimNode; _: typedesc[IdentDef]): bool		3
 nim	identDef	micros/definitions/identdefs.html#identDef,NimNode	proc identDef(n: NimNode): IdentDef		10
 nim	identDef	micros/definitions/identdefs.html#identDef,NimName,NimNode	proc identDef(name: NimName; typ: NimNode): IdentDef		17
 nim	isSingle	micros/definitions/identdefs.html#isSingle,IdentDef	proc isSingle(iDef: IdentDef): bool		28

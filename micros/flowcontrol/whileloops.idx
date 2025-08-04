@@ -1,5 +1,5 @@
 nimTitle	whileloops	micros/flowcontrol/whileloops.html	module src/micros/flowcontrol/whileloops		0
-nim	isa	micros/flowcontrol/whileloops.html#isa,NimNode,typedesc[WhileLoop]	proc isa(n: NimNode; __1593835526: typedesc[WhileLoop]): bool		5
+nim	isa	micros/flowcontrol/whileloops.html#isa,NimNode,typedesc[WhileLoop]	proc isa(n: NimNode; _: typedesc[WhileLoop]): bool		5
 nim	whileLoop	micros/flowcontrol/whileloops.html#whileLoop,NimNode	proc whileLoop(n: NimNode): WhileLoop		10
 nim	whileLoop	micros/flowcontrol/whileloops.html#whileLoop,NimNode,NimNode	proc whileLoop(cond, body: NimNode): WhileLoop		14
 nim	cond	micros/flowcontrol/whileloops.html#cond,WhileLoop	proc cond(whileLoop: WhileLoop): NimNode		18

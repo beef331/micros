@@ -1,5 +1,5 @@
 nimTitle	objectdefs	micros/definitions/objectdefs.html	module src/micros/definitions/objectdefs		0
-nim	isa	micros/definitions/objectdefs.html#isa,NimNode,typedesc[ObjectDef]	proc isa(n: NimNode; __1392508937: typedesc[ObjectDef]): bool		6
+nim	isa	micros/definitions/objectdefs.html#isa,NimNode,typedesc[ObjectDef]	proc isa(n: NimNode; _: typedesc[ObjectDef]): bool		6
 nim	objectDef	micros/definitions/objectdefs.html#objectDef,NimNode	proc objectDef(n: NimNode): ObjectDef		22
 nim	objectDef	micros/definitions/objectdefs.html#objectDef	proc objectDef(name: string or NimName; isRef = false;\n          parent: NimName or NimNode = newEmptyNode()): ObjectDef		39
 nim	recList	micros/definitions/objectdefs.html#recList,ObjectDef	proc recList(obj: ObjectDef): auto		71
