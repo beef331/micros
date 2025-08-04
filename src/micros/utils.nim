@@ -23,7 +23,7 @@ iterator `[]`*(n: NimNodes, slice: Slice[BackwardsIndex]): NimNode =
     yield n[i]
 
 func castTo*(node: NimNodes, typ: typedesc): NimNode =
-  nnkCast.newTree(typ.getType[^1], NimNode node)
+  nnkCast.newTree(typ.getType, NimNode node)
 
 func makeTypeDesc*(n: NimNode): NimNode = nnkBracketExpr.newTree(ident"typedesc", n)
 

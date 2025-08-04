@@ -19,7 +19,11 @@ func identDef*(name: NimName, typ: NimNode): IdentDef =
 
 func identDefTyp(name: string, typ: typedesc): IdentDef =
   ## Generates an `IdentDef` of `name: typ`
-  IdentDef newIdentDefs(ident name, typ.getType()[1])
+  var typ = typ.getType()
+  if typ.typekind == ntyTypeDesc:
+    typ = typ[^1]
+
+  IdentDef newIdentDefs(ident name, typ)
 
 func identDefVal(name: string, val: not typedesc and not NimNode): IdentDef =
   ## generates a `IdentDef` of `name = val`
