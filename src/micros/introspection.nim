@@ -16,9 +16,9 @@ macro paramTypeAt*(p: proc, ind: static int): untyped =
 
 macro paramsAsTuple*(p: proc): untyped =
   ## Creates a tuple typedesc for the parameters of a given procedure
-  result = nnkTupleConstr.newTree()
+  result = nnkTupleTy.newTree()
   for x in p.getTypeImpl()[0][1..^1]:
-    result.add x[^2]
+    result.add newIdentDefs(ident $x[0], x[1])
 
 macro unpackTuple*(p: proc, t: tuple): untyped =
   ## Attempts to invoke a procedure with a given tuple, akin to macros.unpackVarargs
